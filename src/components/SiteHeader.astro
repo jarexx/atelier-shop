@@ -68,7 +68,7 @@ if (!featuredProduct) {
       </a>
       <button
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-ink md:hidden"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:text-accent md:hidden"
         aria-label="Open menu"
         aria-controls="mobile-menu"
         aria-expanded="false"
@@ -119,14 +119,14 @@ if (!featuredProduct) {
         </button>
       </div>
 
-      <div class="grid min-h-0 flex-1 grid-rows-[auto_1fr_auto] gap-6 pt-8">
-        <div class="space-y-4">
+      <div class="flex min-h-0 flex-1 flex-col gap-5 pt-7">
+        <div class="space-y-2.5">
           {
             navItems.map((item) => (
               <a
                 href={item.href}
                 class:list={[
-                  "block font-serif text-5xl leading-none transition-colors hover:text-accent",
+                  "block font-serif text-4xl leading-none transition-colors hover:text-accent",
                   isActive(item.href) ? "text-ink" : "text-faded",
                 ]}
                 aria-current={isActive(item.href) ? "page" : undefined}
@@ -150,44 +150,37 @@ if (!featuredProduct) {
 
         <a
           href={`/products/${featuredProduct.slug}`}
-          class="group grid min-h-0 grid-cols-[6.25rem_1fr] items-end gap-4 border-y border-line py-5"
+          class="group block border-y border-line py-4"
           data-mobile-menu-link
         >
-          <div class="aspect-[4/5] overflow-hidden rounded-md bg-paper">
+          <div class="aspect-[16/10] max-h-[32dvh] overflow-hidden rounded-md bg-paper">
             <Image
               src={featuredProduct.images[0]}
               alt={`${featuredProduct.name} - ${featuredProduct.shortDescription}`}
-              width={360}
-              height={450}
+              width={900}
+              height={560}
               format="webp"
               loading="eager"
               class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             />
           </div>
-          <div class="min-w-0 space-y-2">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Featured piece</p>
-            <p class="font-serif text-3xl leading-none">{featuredProduct.name}</p>
-            <p class="text-sm leading-relaxed text-faded">{featuredProduct.shortDescription}</p>
-            <p class="text-xs uppercase tracking-[0.2em] text-accent">{formatPrice(featuredProduct.price)}</p>
+          <div class="mt-3 flex items-end justify-between gap-4">
+            <div class="min-w-0 space-y-1.5">
+              <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Featured piece</p>
+              <p class="font-serif text-3xl leading-none">{featuredProduct.name}</p>
+              <p class="text-sm leading-relaxed text-faded">{featuredProduct.shortDescription}</p>
+            </div>
+            <p class="shrink-0 pb-0.5 text-xs uppercase tracking-[0.2em] text-accent">
+              {formatPrice(featuredProduct.price)}
+            </p>
           </div>
         </a>
 
-        <div class="grid grid-cols-2 gap-6 text-sm">
-          <div class="space-y-2">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Contact</p>
-            <a href="mailto:studio@atelier-ko.com" class="block transition-colors hover:text-accent" data-mobile-menu-link>
-              studio@atelier-ko.com
-            </a>
-          </div>
-          <div class="space-y-2">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Social</p>
-            <a href="https://www.instagram.com/" class="block transition-colors hover:text-accent" data-mobile-menu-link>
-              Instagram
-            </a>
-            <a href="/about" class="block transition-colors hover:text-accent" data-mobile-menu-link>
-              Journal
-            </a>
-          </div>
+        <div class="mt-auto space-y-2 text-sm">
+          <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Contact</p>
+          <a href="mailto:studio@atelier-ko.com" class="block transition-colors hover:text-accent" data-mobile-menu-link>
+            studio@atelier-ko.com
+          </a>
         </div>
       </div>
     </div>
