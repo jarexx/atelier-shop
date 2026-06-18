@@ -63,11 +63,39 @@ The configured `site` value is used for canonical URLs, sitemap generation, and 
 
 Main content files:
 
-- `src/data/products.js` - product catalogue, categories, prices, and descriptions.
+- `src/content/products/*.md` - product catalogue entries, frontmatter, images, and descriptions.
+- `src/content.config.js` - product content collection schema.
+- `src/data/products.js` - helper utilities that read and sort product content.
 - `src/layouts/BaseLayout.astro` - shared metadata, global shell, header/footer slots, and cart helper.
 - `src/components/SiteHeader.astro` - navigation and cart badge.
 - `src/components/SiteFooter.astro` - footer links and studio copy.
 - `src/styles.css` - design tokens, Tailwind setup, and local font declarations.
+
+## Adding Products
+
+Add one Markdown file per product in `src/content/products/`. The file name becomes the product URL slug, so `arvid-chair.md` becomes `/products/arvid-chair/`.
+
+```md
+---
+name: Arvid Chair
+collection: Collection 01 — Seating
+category: Seating
+material: Ash
+price: 840
+shortDescription: Curved Ash
+dimensions: W 54 × D 56 × H 92 cm
+finish: Soap-Treated
+leadTime: 6–8 Weeks
+images:
+  - ../../assets/p-arvid-1.jpg
+  - ../../assets/p-arvid-2.jpg
+order: 2
+---
+
+A single sculpted shell of steam-bent ash, the Arvid Chair traces the silhouette of the body.
+```
+
+Product images should live in `src/assets/` so Astro can optimize them. Categories and materials are derived automatically from the product files and appear in the catalogue filters.
 
 ## Pages
 

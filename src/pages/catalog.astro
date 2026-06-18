@@ -1,7 +1,10 @@
 ---
 import ProductCard from "@/components/ProductCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { allCategories, allMaterials, products } from "@/data/products.js";
+import { getProductFilters, getProducts } from "@/data/products.js";
+
+const products = await getProducts();
+const { categories: allCategories, materials: allMaterials } = getProductFilters(products);
 ---
 
 <BaseLayout

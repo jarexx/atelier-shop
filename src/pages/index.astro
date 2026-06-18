@@ -3,10 +3,13 @@ import { Image } from "astro:assets";
 import ProductCard from "@/components/ProductCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/atelier-hero.jpg";
-import { formatPrice, getProduct } from "@/data/products.js";
+import { formatPrice, getProducts } from "@/data/products.js";
 
-const featured = ["arvid-chair", "low-plinth-table", "tora-desk"].map(getProduct).filter(Boolean);
-const solo = getProduct("monolith-bench");
+const products = await getProducts();
+const featured = ["arvid-chair", "low-plinth-table", "tora-desk"]
+  .map((slug) => products.find((product) => product.slug === slug))
+  .filter(Boolean);
+const solo = products.find((product) => product.slug === "monolith-bench");
 
 if (!solo) {
   throw new Error("Missing required featured product: monolith-bench");

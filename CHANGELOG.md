@@ -10,7 +10,7 @@ This project follows semantic versioning where practical.
 
 - Initial Astro 6 theme release for Atelier Kō.
 - Static homepage, catalogue, product detail pages, about page, cart page, 404 page, and dynamic `robots.txt`.
-- Product catalogue data in plain JavaScript.
+- Product catalogue entries managed through Astro content collections.
 - Astro-optimized local images from `src/assets`.
 - Self-hosted WOFF2 fonts in `src/assets/fonts`.
 - Vanilla JavaScript enhancements for catalogue filters, product gallery, newsletter preview, and local cart.

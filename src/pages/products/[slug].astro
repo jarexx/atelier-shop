@@ -2,12 +2,13 @@
 import { Image } from "astro:assets";
 import ProductCard from "@/components/ProductCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { formatPrice, getRelated, products } from "@/data/products.js";
+import { formatPrice, getProducts, getRelated } from "@/data/products.js";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const products = await getProducts();
   return products.map((product) => ({
     params: { slug: product.slug },
-    props: { product, related: getRelated(product.slug) },
+    props: { product, related: getRelated(products, product.slug) },
   }));
 }
 
