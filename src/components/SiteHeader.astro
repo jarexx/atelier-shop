@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import { formatPrice, getProduct } from "@/data/products.js";
+
 const { currentPath = "/" } = Astro.props;
 
 const isActive = (href = "") => {
@@ -11,6 +14,12 @@ const navItems = [
   { href: "/catalog", label: "Catalogue" },
   { href: "/about", label: "About" },
 ];
+
+const featuredProduct = await getProduct("oken-stool");
+
+if (!featuredProduct) {
+  throw new Error("Missing required mobile menu product: oken-stool");
+}
 ---
 
 <nav class="sticky top-0 z-50 border-b border-line bg-base/80 backdrop-blur-md" aria-label="Main navigation">
@@ -34,27 +43,246 @@ const navItems = [
         ))
       }
     </div>
-    <a
-      href="/cart"
-      data-cart-label
-      aria-label="Cart, 0 items"
-      class="relative inline-flex items-center gap-1.5 p-1 text-sm font-medium transition-colors hover:text-accent"
-    >
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
+    <div class="flex items-center gap-3">
+      <a
+        href="/cart"
+        data-cart-label
+        aria-label="Cart, 0 items"
+        class="relative inline-flex items-center gap-1.5 p-1 text-sm font-medium transition-colors hover:text-accent"
       >
-        <path d="M6 8h12l-1 12H7L6 8Z"></path>
-        <path d="M9 8a3 3 0 0 1 6 0"></path>
-      </svg>
-      <span class="tabular-nums text-faded" data-cart-count>(0)</span>
-    </a>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M6 8h12l-1 12H7L6 8Z"></path>
+          <path d="M9 8a3 3 0 0 1 6 0"></path>
+        </svg>
+        <span class="tabular-nums text-faded" data-cart-count>(0)</span>
+      </a>
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-ink md:hidden"
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        data-mobile-menu-open
+      >
+        <span class="sr-only">Open menu</span>
+        <span class="flex w-4 flex-col gap-1.5" aria-hidden="true">
+          <span class="h-px w-full bg-current"></span>
+          <span class="h-px w-full bg-current"></span>
+          <span class="h-px w-full bg-current"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-[60] hidden h-dvh overflow-hidden bg-base text-ink md:hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile menu"
+    data-mobile-menu
+  >
+    <div class="flex h-full flex-col px-6 pb-6 pt-5">
+      <div class="flex h-11 items-center justify-between">
+        <a href="/" class="font-serif text-xl italic tracking-tight" aria-label="Atelier Kō home" data-mobile-menu-link>
+          Atelier Kō
+        </a>
+        <button
+          type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-ink"
+          aria-label="Close menu"
+          data-mobile-menu-close
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12"></path>
+            <path d="M18 6L6 18"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="grid min-h-0 flex-1 grid-rows-[auto_1fr_auto] gap-6 pt-8">
+        <div class="space-y-4">
+          {
+            navItems.map((item) => (
+              <a
+                href={item.href}
+                class:list={[
+                  "block font-serif text-5xl leading-none transition-colors hover:text-accent",
+                  isActive(item.href) ? "text-ink" : "text-faded",
+                ]}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                data-mobile-menu-link
+              >
+                {item.label}
+              </a>
+            ))
+          }
+          <a
+            href="/cart"
+            data-cart-label
+            aria-label="Cart, 0 items"
+            class="inline-flex items-center gap-2 pt-1 text-sm uppercase tracking-[0.2em] text-faded transition-colors hover:text-ink"
+            data-mobile-menu-link
+          >
+            Cart
+            <span class="tabular-nums" data-cart-count>(0)</span>
+          </a>
+        </div>
+
+        <a
+          href={`/products/${featuredProduct.slug}`}
+          class="group grid min-h-0 grid-cols-[6.25rem_1fr] items-end gap-4 border-y border-line py-5"
+          data-mobile-menu-link
+        >
+          <div class="aspect-[4/5] overflow-hidden rounded-md bg-paper">
+            <Image
+              src={featuredProduct.images[0]}
+              alt={`${featuredProduct.name} - ${featuredProduct.shortDescription}`}
+              width={360}
+              height={450}
+              format="webp"
+              loading="eager"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            />
+          </div>
+          <div class="min-w-0 space-y-2">
+            <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Featured piece</p>
+            <p class="font-serif text-3xl leading-none">{featuredProduct.name}</p>
+            <p class="text-sm leading-relaxed text-faded">{featuredProduct.shortDescription}</p>
+            <p class="text-xs uppercase tracking-[0.2em] text-accent">{formatPrice(featuredProduct.price)}</p>
+          </div>
+        </a>
+
+        <div class="grid grid-cols-2 gap-6 text-sm">
+          <div class="space-y-2">
+            <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Contact</p>
+            <a href="mailto:studio@atelier-ko.com" class="block transition-colors hover:text-accent" data-mobile-menu-link>
+              studio@atelier-ko.com
+            </a>
+          </div>
+          <div class="space-y-2">
+            <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Social</p>
+            <a href="https://www.instagram.com/" class="block transition-colors hover:text-accent" data-mobile-menu-link>
+              Instagram
+            </a>
+            <a href="/about" class="block transition-colors hover:text-accent" data-mobile-menu-link>
+              Journal
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
+
+<script is:inline>
+  (() => {
+    const menu = document.querySelector("[data-mobile-menu]");
+    const openButton = document.querySelector("[data-mobile-menu-open]");
+    const closeButton = document.querySelector("[data-mobile-menu-close]");
+
+    if (!menu || !openButton || !closeButton) return;
+
+    const focusableSelector = [
+      "a[href]",
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(",");
+    let lastFocusedElement;
+
+    function getFocusable() {
+      return Array.from(menu.querySelectorAll(focusableSelector)).filter((element) => {
+        return element instanceof HTMLElement && element.offsetParent !== null;
+      });
+    }
+
+    function lockScroll() {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+
+    function unlockScroll() {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      lastFocusedElement = document.activeElement;
+      menu.classList.remove("hidden");
+      openButton.setAttribute("aria-expanded", "true");
+      lockScroll();
+      closeButton.focus({ preventScroll: true });
+    }
+
+    function closeMenu({ restoreFocus = true } = {}) {
+      menu.classList.add("hidden");
+      openButton.setAttribute("aria-expanded", "false");
+      unlockScroll();
+
+      if (restoreFocus && lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus({ preventScroll: true });
+      }
+    }
+
+    openButton.addEventListener("click", openMenu);
+    closeButton.addEventListener("click", () => closeMenu());
+
+    menu.querySelectorAll("[data-mobile-menu-link]").forEach((link) => {
+      link.addEventListener("click", () => closeMenu({ restoreFocus: false }));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (menu.classList.contains("hidden")) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = getFocusable();
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 768px)").matches && !menu.classList.contains("hidden")) {
+        closeMenu({ restoreFocus: false });
+      }
+    });
+  })();
+</script>
