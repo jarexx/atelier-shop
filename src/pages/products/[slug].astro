@@ -17,7 +17,7 @@ const productUrl = new URL(`/products/${product.slug}`, Astro.site ?? Astro.url.
 ---
 
 <BaseLayout
-  title={`${product.name} — Atelier Kō`}
+  title={`${product.name} — Jarek Sikorski art`}
   description={product.description.slice(0, 155)}
   image={product.images[0]}
 >
@@ -134,7 +134,7 @@ const productUrl = new URL(`/products/${product.slug}`, Astro.site ?? Astro.url.
     image: product.images.map((image) => new URL(image.src, Astro.url.origin).href),
     brand: {
       "@type": "Brand",
-      name: "Atelier Kō",
+      name: "Jarek Sikorski art",
     },
     material: product.material,
     url: productUrl,

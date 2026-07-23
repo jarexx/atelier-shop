@@ -4,7 +4,7 @@ import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
 
 const {
-  title = "Atelier Kō — Hand-made furniture from the northern woods",
+  title = "Jarek Sikorski art — Hand-made furniture from the northern woods",
   description = "A small Swedish atelier crafting solid oak, ash and walnut furniture by hand. Made to order in Småland.",
   image,
   noindex = false,
@@ -23,7 +23,7 @@ const ogImage = image ? new URL(image.src ?? image, Astro.site ?? Astro.url.orig
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="Atelier Kō" />
+    <meta name="author" content="Jarek Sikorski art" />
     <meta name="theme-color" content="#f8f7f4" />
     <link rel="canonical" href={canonicalUrl.href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -31,7 +31,7 @@ const ogImage = image ? new URL(image.src ?? image, Astro.site ?? Astro.url.orig
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:site_name" content="Atelier Kō" />
+    <meta property="og:site_name" content="Jarek Sikorski art" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl.href} />
     {ogImage && <meta property="og:image" content={ogImage} />}

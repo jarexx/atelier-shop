@@ -1,6 +1,6 @@
-# Atelier Kō - Minimalist Furniture Store Theme
+# Jarek Sikorski art - Minimalist Furniture Store Theme
 
-[![Atelier Kō theme preview](preview.webp)](https://atelier-ko-topaz.vercel.app/)
+[![Jarek Sikorski art theme preview](preview.webp)](https://atelier-ko-topaz.vercel.app/)
 
 ![Astro 6](https://img.shields.io/badge/Astro-6.4.8-ff5d01?style=for-the-badge&logo=astro&logoColor=white)
 ![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4.1-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)
@@ -9,7 +9,7 @@
 
 Preview: [https://atelier-ko-topaz.vercel.app/](https://atelier-ko-topaz.vercel.app/)
 
-Atelier Kō is a quiet, editorial Astro theme for a small furniture atelier or craft-led product catalogue. Fully static, with small JavaScript enhancements for the catalogue filters, product gallery, and local cart.
+Jarek Sikorski art is a quiet, editorial Astro theme for a small furniture atelier or craft-led product catalogue. Fully static, with small JavaScript enhancements for the catalogue filters, product gallery, and local cart.
 
 ## Features
 
@@ -20,7 +20,7 @@ Atelier Kō is a quiet, editorial Astro theme for a small furniture atelier or c
 - LocalStorage cart with quantity controls and a multi-step checkout preview
 - About page with workshop story, principles, image-led sections, and contact CTA
 - Astro-optimized images served in WebP with responsive widths
-- Self-hosted WOFF2 fonts (Inter, Instrument Serif) — no external requests
+- Self-hosted WOFF2 fonts (Inter, Norma_) — no external requests
 - Full SEO: canonical URLs, Open Graph, Twitter cards, Product and Organization JSON-LD, sitemap, dynamic `robots.txt`
 - Accessible: skip-to-content link, ARIA labels, focus-managed mobile menu, semantic HTML
 - Strict TypeScript throughout
