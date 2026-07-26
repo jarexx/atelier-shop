@@ -49,9 +49,13 @@ export function getProductFilters(products: Product[]): {
   categories: string[];
   materials: string[];
 } {
+  const categories = [...new Set(products.map((product) => product.category))];
+  const materials = [...new Set(products.flatMap((product) =>
+    product.material ? product.material.split(",").map((s) => s.trim()) : []
+  ))];
   return {
-    categories: [...new Set(products.map((product) => product.category))],
-    materials: [...new Set(products.map((product) => product.material))],
+    categories,
+    materials,
   };
 }
 

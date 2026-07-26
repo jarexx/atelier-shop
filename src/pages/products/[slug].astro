@@ -14,6 +14,38 @@ export async function getStaticPaths() {
 
 const { product, related } = Astro.props;
 const productUrl = new URL(`/products/${product.slug}`, Astro.site ?? Astro.url.origin).href;
+
+function formatDimensions(dimStr: string) {
+  if (!dimStr || dimStr.toLowerCase().includes("request") || dimStr.trim() === "") return null;
+  
+  // Try to match W 29 × H 41 cm or similar
+  const match = dimStr.match(/W\s*(\d+(?:\.\d+)?)\s*×\s*H\s*(\d+(?:\.\d+)?)/i);
+  if (match) {
+    const wCm = parseFloat(match[1]);
+    const hCm = parseFloat(match[2]);
+    const wIn = (wCm * 0.393701).toFixed(1);
+    const hIn = (hCm * 0.393701).toFixed(1);
+    return {
+      cm: `${wCm} × ${hCm} cm`,
+      inches: `${wIn} × ${hIn} in`
+    };
+  }
+  
+  // Try to match other formats like 29x41 or 29 x 41
+  const match2 = dimStr.match(/(\d+(?:\.\d+)?)\s*(?:x|×)\s*(\d+(?:\.\d+)?)/i);
+  if (match2) {
+    const wCm = parseFloat(match2[1]);
+    const hCm = parseFloat(match2[2]);
+    const wIn = (wCm * 0.393701).toFixed(1);
+    const hIn = (hCm * 0.393701).toFixed(1);
+    return {
+      cm: `${wCm} × ${hCm} cm`,
+      inches: `${wIn} × ${hIn} in`
+    };
+  }
+  
+  return { cm: dimStr, inches: null };
+}
 ---
 
 <BaseLayout
@@ -74,38 +106,45 @@ const productUrl = new URL(`/products/${product.slug}`, Astro.site ?? Astro.url.
         <div class="space-y-4">
           <div class="text-xs uppercase tracking-widest text-faded">{product.collection}</div>
           <h1 class="text-balance font-serif text-4xl leading-tight md:text-5xl">{product.name}</h1>
-          <p class="font-serif text-2xl">{formatPrice(product.price)}</p>
+          {product.leadTime !== "Private Collection" && (
+            <p class="font-serif text-2xl">{formatPrice(product.price)}</p>
+          )}
         </div>
 
         <div class="space-y-6">
           <p class="max-w-[44ch] text-pretty leading-relaxed text-faded">{product.description}</p>
-          <dl class="space-y-3">
-            <div class="flex justify-between border-b border-line py-2 text-sm">
-              <dt class="text-faded">Material</dt>
-              <dd>{product.material}</dd>
-            </div>
-            <div class="flex justify-between border-b border-line py-2 text-sm">
-              <dt class="text-faded">Dimensions</dt>
-              <dd>{product.dimensions}</dd>
-            </div>
-            <div class="flex justify-between border-b border-line py-2 text-sm">
-              <dt class="text-faded">Finish</dt>
-              <dd>{product.finish}</dd>
-            </div>
-            <div class="flex justify-between border-b border-line py-2 text-sm">
-              <dt class="text-faded">Lead Time</dt>
-              <dd>{product.leadTime}</dd>
-            </div>
-          </dl>
+          <div class="space-y-2 pt-4 text-sm border-t border-line">
+            <p><span class="text-faded">Medium:</span> {product.material}</p>
+            {(() => {
+              const formatted = formatDimensions(product.dimensions);
+              if (!formatted) return null;
+              return (
+                <p class="select-none">
+                  <span class="text-faded">Dimensions:</span>{" "}
+                  {formatted.inches ? (
+                    <span data-dim-toggle class="cursor-pointer inline-flex items-center gap-1 group/dim">
+                      <span data-dim-primary>{formatted.cm}</span>
+                      <span data-dim-secondary class="text-faded text-xs transition-colors group-hover/dim:text-ink/60">({formatted.inches})</span>
+                    </span>
+                  ) : (
+                    <span>{formatted.cm}</span>
+                  )}
+                </p>
+              );
+            })()}
+            <p><span class="text-faded">Status:</span> {product.leadTime}</p>
+          </div>
         </div>
 
-        <button
-          type="button"
-          data-add-to-cart={product.slug}
-          class="w-full rounded-full bg-ink py-4 text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
-        >
-          Add to Collection
-        </button>
+        {product.leadTime !== "Private Collection" && (
+          <button
+            type="button"
+            data-add-to-cart={product.slug}
+            class="w-full rounded-full bg-ink py-4 text-sm font-medium text-[var(--color-base)] ring-1 ring-ink transition-all hover:bg-accent hover:ring-accent active:scale-[0.98]"
+          >
+            Add to Collection
+          </button>
+        )}
 
         <p class="text-[11px] uppercase tracking-widest text-faded">
           Free white-glove delivery in EU · Worldwide on request
@@ -147,7 +186,9 @@ const productUrl = new URL(`/products/${product.slug}`, Astro.site ?? Astro.url.
     },
   })}></script>
 
-  <script is:inline>
+  <script>
+    import { gsap } from "gsap";
+
     const gallery = document.querySelector("[data-product-gallery]");
     if (gallery) {
       const panels = Array.from(gallery.querySelectorAll("[data-gallery-panel]"));
@@ -155,10 +196,10 @@ const productUrl = new URL(`/products/${product.slug}`, Astro.site ?? Astro.url.
 
       thumbs.forEach((thumb) => {
         thumb.addEventListener("click", () => {
-          const active = thumb.dataset.galleryThumb;
-          panels.forEach((panel) => panel.classList.toggle("hidden", panel.dataset.galleryPanel !== active));
+          const active = (thumb as HTMLElement).dataset.galleryThumb;
+          panels.forEach((panel) => (panel as HTMLElement).classList.toggle("hidden", (panel as HTMLElement).dataset.galleryPanel !== active));
           thumbs.forEach((button) => {
-            const selected = button.dataset.galleryThumb === active;
+            const selected = (button as HTMLElement).dataset.galleryThumb === active;
             button.classList.toggle("ring-ink", selected);
             button.classList.toggle("ring-line", !selected);
             button.setAttribute("aria-pressed", selected ? "true" : "false");
@@ -170,15 +211,67 @@ const productUrl = new URL(`/products/${product.slug}`, Astro.site ?? Astro.url.
     const addButton = document.querySelector("[data-add-to-cart]");
     if (addButton) {
       const originalText = addButton.textContent;
-      let timer;
+      let timer: number;
       addButton.addEventListener("click", () => {
-        window.AtelierCart.add(addButton.dataset.addToCart, 1);
+        // @ts-ignore
+        if (window.AtelierCart) {
+          // @ts-ignore
+          window.AtelierCart.add((addButton as HTMLElement).dataset.addToCart, 1);
+        }
         addButton.textContent = "Added to your archive →";
         window.clearTimeout(timer);
         timer = window.setTimeout(() => {
           addButton.textContent = originalText;
         }, 1800);
       });
+    }
+
+    // Dynamic Dimensions interactive toggle with GSAP
+    const toggle = document.querySelector("[data-dim-toggle]");
+    if (toggle) {
+      const primary = toggle.querySelector("[data-dim-primary]");
+      const secondary = toggle.querySelector("[data-dim-secondary]");
+      
+      if (primary && secondary) {
+        const cmText = primary.textContent || "";
+        const inText = (secondary.textContent || "").replace(/[()]/g, "").trim();
+        
+        let isCm = true;
+        
+        toggle.addEventListener("click", () => {
+          isCm = !isCm;
+          
+          const tl = gsap.timeline();
+          
+          // 1. Fade out and slide down
+          tl.to([primary, secondary], {
+            opacity: 0,
+            y: isCm ? -4 : 4,
+            duration: 0.12,
+            ease: "power1.in",
+            onComplete: () => {
+              // 2. Swap text
+              if (isCm) {
+                primary.textContent = cmText;
+                secondary.textContent = `(${inText})`;
+              } else {
+                primary.textContent = inText;
+                secondary.textContent = `(${cmText})`;
+              }
+              // Set starting position for fade in
+              gsap.set([primary, secondary], { y: isCm ? 4 : -4 });
+            }
+          });
+          
+          // 3. Fade in and slide back to center
+          tl.to([primary, secondary], {
+            opacity: 1,
+            y: 0,
+            duration: 0.2,
+            ease: "power2.out"
+          });
+        });
+      }
     }
   </script>
   </main>

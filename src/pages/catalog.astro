@@ -109,10 +109,13 @@ const { categories: allCategories, materials: allMaterials } = getProductFilters
 
     function applyFilters() {
       const visible = items.filter((item) => {
-        return (
-          (filters.category === "all" || item.dataset.category === filters.category) &&
-          (filters.material === "all" || item.dataset.material === filters.material)
-        );
+        const itemCategories = item.dataset.category ? item.dataset.category.split(",").map(s => s.trim()) : [];
+        const itemMaterials = item.dataset.material ? item.dataset.material.split(",").map(s => s.trim()) : [];
+        
+        const categoryMatch = filters.category === "all" || itemCategories.includes(filters.category);
+        const materialMatch = filters.material === "all" || itemMaterials.includes(filters.material);
+        
+        return categoryMatch && materialMatch;
       });
 
       visible.sort((a, b) => {
