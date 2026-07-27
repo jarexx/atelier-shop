@@ -1,0 +1,111 @@
+---
+import { Image } from "astro:assets";
+import seanImg from "@/assets/images/products/sean.webp";
+import beadsImg from "@/assets/images/products/elderly-woman-with-beads.webp";
+
+const privateCollectionItems = [
+  {
+    name: "Sean",
+    technique: "Charcoal on white paper",
+    dimensions: "W 29 × H 40 cm",
+    image: seanImg
+  },
+  {
+    name: "Elderly woman with beads",
+    technique: "Carbon pencil on toned paper",
+    dimensions: "W 30 × H 42 cm",
+    image: beadsImg
+  }
+];
+---
+
+<section id="commissions" class="commissions-section relative bg-charcoal-texture text-[var(--old-lace)] px-6 py-24 md:py-36 overflow-hidden z-10">
+  <div class="mx-auto w-full max-w-screen-xl grid grid-cols-1 lg:grid-cols-12 gap-16 items-center z-10">
+    
+    <!-- Lewa kolumna: Informacje o zamówieniach -->
+    <div class="lg:col-span-5 space-y-8 z-10">
+      <div class="space-y-4">
+        <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
+          Portrety na zamówienie
+        </p>
+        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-[var(--old-lace)] leading-tight">
+          Bespoke<br /><span class="italic text-[var(--dim-grey-light)]">Portraits</span>
+        </h2>
+      </div>
+
+      <div class="space-y-6 text-sm text-[var(--dim-grey-light)] leading-relaxed">
+        <p>
+          Zamów indywidualny, ręcznie wykonany portret. Każde zlecenie realizowane jest zgodnie z muzealnymi standardami z użyciem najwyższej jakości, bezkwasowych materiałów, dostosowanych do Twoich oczekiwań.
+        </p>
+        <p>
+          Pracuję bezpośrednio na podstawie dostarczonych przez Ciebie fotografii wysokiej rozdzielczości. Przed nałożeniem finalnego światłocienia przesyłam roboczy szkic do Twojej weryfikacji i akceptacji.
+        </p>
+      </div>
+
+      <!-- Szczegóły techniczne/biznesowe -->
+      <div class="border-t border-[var(--dim-grey-light)]/25 pt-6 space-y-4 text-xs font-sans text-[var(--dim-grey-light)]">
+        <div class="flex justify-between text-balance gap-4">
+          <span class="uppercase tracking-[0.1em] shrink-0">Formaty</span>
+          <span class="text-[var(--old-lace)] font-medium text-right">A3 / A3+ / Wymiary niestandardowe</span>
+        </div>
+        <div class="flex justify-between text-balance gap-4">
+          <span class="uppercase tracking-[0.1em] shrink-0">Płatność</span>
+          <span class="text-[var(--old-lace)] font-medium text-right">Zadatek 50% przed rozpoczęciem pracy</span>
+        </div>
+        <div class="flex justify-between text-balance gap-4">
+          <span class="uppercase tracking-[0.1em] shrink-0">Wysyłka</span>
+          <span class="text-[var(--old-lace)] font-medium text-right">Bezpieczne opakowanie w tubach tubusowych</span>
+        </div>
+      </div>
+
+      <div class="pt-4">
+        <a
+          href="/kontakt"
+          class="inline-flex items-center justify-center gap-3 rounded-full bg-[var(--old-lace)] text-[var(--charcoal-black)] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] transition-all hover:bg-[#eae1d4] hover:scale-[1.01] active:scale-[0.99]"
+        >
+          Napisz w sprawie zamówienia
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Prawa kolumna: Siatka "Private Collection" -->
+    <div class="lg:col-span-7 space-y-8 z-10">
+      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
+        Prace w kolekcjach prywatnych
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {
+          privateCollectionItems.map((item) => (
+            <div class="commissions-tile group space-y-3">
+              <div class="relative aspect-[3/4] overflow-hidden bg-[#221c16] rounded-sm p-3 border border-[var(--dim-grey-light)]/20 shadow-md">
+                <div class="relative w-full h-full overflow-hidden bg-[#2d2822]">
+                  <Image
+                    src={item.image}
+                    alt={`${item.name} — ${item.technique}`}
+                    width={400}
+                    height={530}
+                    format="webp"
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                  />
+                  <!-- Status Overlay -->
+                  <div class="absolute top-3 right-3 bg-[var(--charcoal-black)]/90 px-3 py-1.5 text-[9px] uppercase tracking-[0.15em] text-[var(--dim-grey-light)] border border-[var(--dim-grey-light)]/30 rounded-sm">
+                    In Private Collection
+                  </div>
+                </div>
+              </div>
+              
+              <div class="px-1 text-center sm:text-left">
+                <h3 class="text-md font-serif text-[var(--old-lace)]">{item.name}</h3>
+                <p class="text-xs text-[var(--dim-grey-light)]">{item.technique} · {item.dimensions}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+import quietImg from "@/assets/images/products/quiet-in-a-white-dress.webp";
+import sittingImg from "@/assets/images/products/sitting-back-woman.webp";
+import wakeningImg from "@/assets/images/products/wakening-of-angela.jpeg";
+
+const collectionItems = [
+  {
+    slug: "quiet-in-a-white-dress",
+    name: "Quiet in a white dress",
+    technique: "Charcoal & Pastel on toned paper",
+    dimensions: "W 29 × H 40 cm (A3)",
+    price: "1,800 PLN",
+    image: quietImg,
+    aspect: "aspect-[3/4]"
+  },
+  {
+    slug: "sitting-back-woman",
+    name: "Sitting back woman",
+    technique: "Graphite & White Chalk on grey paper",
+    dimensions: "W 29 × H 40 cm (A3)",
+    price: "1,600 PLN",
+    image: sittingImg,
+    aspect: "aspect-[4/5] md:translate-y-12"
+  },
+  {
+    slug: "wakening-of-angela",
+    name: "Wakening of Angela",
+    technique: "Sepia & Sanguine on warm paper",
+    dimensions: "W 29 × H 40 cm (A3)",
+    price: "2,000 PLN",
+    image: wakeningImg,
+    aspect: "aspect-[3/4] md:-translate-y-8"
+  }
+];
+---
+
+<section class="collection-section px-6 py-24 md:py-36 border-t border-[var(--line)] overflow-hidden">
+  <div class="mx-auto w-full max-w-screen-xl space-y-16">
+    
+    <!-- Sekcja Nagłówka -->
+    <div class="space-y-4 max-w-xl">
+      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
+        Kolekcja Oryginałów 1/1
+      </p>
+      <h2 class="collection-h2 text-4xl sm:text-6xl lg:text-7xl font-serif text-[var(--charcoal-black)] select-none font-semibold">
+        The Collection
+      </h2>
+    </div>
+
+    <!-- Asymetryczny Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-start pt-6">
+      {
+        collectionItems.map((item) => (
+          <div class={`collection-card group flex flex-col space-y-4 cursor-pointer ${item.aspect}`}>
+            <!-- Obrazek w minimalistycznej ramce -->
+            <a href={`/products/${item.slug}`} class="relative w-full h-full overflow-hidden bg-[var(--paper)] rounded-sm shadow-md border border-[var(--dim-grey)]/10 p-4 transition-all duration-500 hover:shadow-xl">
+              <div class="relative w-full h-full overflow-hidden bg-[#faf8f5]">
+                <Image
+                  src={item.image}
+                  alt={`${item.name} — ${item.technique}`}
+                  width={600}
+                  height={800}
+                  format="webp"
+                  loading="lazy"
+                  class="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                />
+              </div>
+            </a>
+            
+            <!-- Metryczka -->
+            <div class="space-y-1.5 px-1">
+              <h3 class="text-lg font-serif text-[var(--charcoal-black)] group-hover:opacity-85 transition-opacity">
+                <a href={`/products/${item.slug}`}>{item.name}</a>
+              </h3>
+              <p class="text-xs text-[var(--dim-grey)] font-sans">
+                {item.technique} · {item.dimensions}
+              </p>
+              <div class="flex items-center justify-between pt-2 border-t border-[var(--line)]">
+                <span class="text-sm font-semibold text-[var(--charcoal-black)] font-sans">{item.price}</span>
+                <a
+                  href={`/products/${item.slug}`}
+                  class="text-[10px] uppercase tracking-[0.2em] text-[var(--dim-grey)] font-semibold transition-colors hover:text-[var(--charcoal-black)]"
+                >
+                  Review Selection →
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+  </div>
+</section>

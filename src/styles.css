@@ -53,8 +53,8 @@
 }
 
 @theme inline {
-  --font-serif: "Norma_", ui-serif, Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Norman Variable", "Norma_", ui-serif, Georgia, serif;
+  --font-sans: "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --color-base: var(--base);
   --color-paper: var(--paper);
@@ -87,12 +87,18 @@
 }
 
 :root {
-  --base: #f8f7f4;
-  --paper: #f1efea;
-  --ink: #27272a;
-  --faded: #71717a;
-  --accent: #5a2d10;
-  --line: #27272a14;
+  --old-lace: #FDF5E6; /* Background / Surface Light */
+  --dim-grey: #696969; /* Muted Text / Accents */
+  --dim-grey-light: #A39E95; /* Muted Text in Dark Sections */
+  --charcoal-black: #151413; /* Background / Surface Dark */
+  --border-subtle: #EAE4DC;
+
+  --base: var(--old-lace);
+  --paper: #F5EFEB;
+  --ink: var(--dim-grey);
+  --faded: #8c8c8c;
+  --accent: var(--charcoal-black);
+  --line: var(--border-subtle);
   --radius: 12px;
 }
 
@@ -113,6 +119,48 @@
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     text-rendering: optimizeLegibility;
+    /* Repeating paper texture overlay loaded by GPU */
+    background-image: url('/assets/1bg_exclusive-paper.webp');
+    background-repeat: repeat;
+  }
+
+  /* Klasy narzędziowe dla ciemnych sekcji o teksturze węgla/papieru */
+  .bg-charcoal-texture {
+    background-color: var(--charcoal-black);
+    position: relative;
+  }
+
+  .bg-charcoal-texture::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/1bg_exclusive-paper.webp');
+    background-repeat: repeat;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .premium-title {
+    font-family: var(--font-serif);
+    color: var(--charcoal-black);
+  }
+
+  /* Headings inside dark sections must be light old-lace */
+  .bg-charcoal-texture h1,
+  .bg-charcoal-texture h2,
+  .bg-charcoal-texture h3,
+  .bg-charcoal-texture h4,
+  .bg-charcoal-texture h5,
+  .bg-charcoal-texture h6,
+  .bg-charcoal-texture .manifesto-text {
+    color: var(--old-lace) !important;
   }
 
   ::selection {

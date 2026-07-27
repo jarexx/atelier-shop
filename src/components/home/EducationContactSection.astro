@@ -1,0 +1,101 @@
+---
+const materialBlocks = [
+  {
+    title: "Strathmore & Canson Papers",
+    description: "Museum-grade, bezkwasowe papiery tonowane (220g/m²). Odporne na starzenie i żółknięcie, gwarantujące zachowanie pierwotnej czystości rysunku przez stulecia."
+  },
+  {
+    title: "Archival Media",
+    description: "Rysunki są wykonywane z użyciem światłotrwałego grafitu, naturalnego węgla wierzbowego oraz ołówków węglowych. Zapewniają one głębokie, matowe czernie odporne na światło."
+  },
+  {
+    title: "Protective Fixatives",
+    description: "Każda tradycyjna praca jest zabezpieczana bezbarwną fiksatywą klasy muzealnej. Chroni ona rysunek przed promieniowaniem UV, rozmazywaniem i czynnikami atmosferycznymi."
+  }
+];
+
+const year = new Date().getFullYear();
+---
+
+<section class="education-contact-section px-6 pt-24 pb-12 border-t border-[var(--line)] overflow-hidden">
+  <div class="mx-auto w-full max-w-screen-xl space-y-24">
+    
+    <!-- 3 Minimalistyczne Bloki Edukacyjne -->
+    <div class="space-y-12">
+      <div class="space-y-4">
+        <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
+          Materiały i Trwałość archiwalna
+        </p>
+        <h2 class="text-3xl sm:text-5xl font-serif text-[var(--charcoal-black)]">
+          Archival Quality
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-2">
+        {
+          materialBlocks.map((block) => (
+            <div class="space-y-3 p-6 bg-[var(--paper)] rounded-sm border border-[var(--dim-grey)]/10 shadow-sm transition-all duration-300 hover:shadow-md">
+              <h3 class="text-lg font-serif text-[var(--charcoal-black)]">
+                {block.title}
+              </h3>
+              <p class="text-xs text-[var(--dim-grey)] leading-relaxed font-sans">
+                {block.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Wyeksponowane Call to Action -->
+    <div class="border-t border-[var(--line)] pt-20 pb-12 text-center space-y-6">
+      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
+        Masz pytania dotyczące portretu?
+      </p>
+      <h2 class="text-4xl sm:text-6xl font-serif text-[var(--charcoal-black)] text-balance max-w-2xl mx-auto leading-tight">
+        Omówmy Twój kolejny <span class="italic text-[var(--dim-grey)]">rysunek</span>.
+      </h2>
+      <div class="pt-6">
+        <a
+          href="mailto:studio@jareksikorski.art"
+          class="text-xl sm:text-3xl font-serif text-[var(--charcoal-black)] underline decoration-[var(--dim-grey)]/30 underline-offset-8 transition-colors hover:text-[var(--dim-grey)]"
+        >
+          studio@jareksikorski.art
+        </a>
+      </div>
+    </div>
+
+    <!-- Minimalistyczna Stopka Strony -->
+    <footer class="border-t border-[var(--line)] pt-16 pb-6">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-xs font-sans text-[var(--dim-grey)]">
+        
+        <!-- Logo i Info -->
+        <div class="space-y-2">
+          <div class="font-serif text-lg text-[var(--charcoal-black)] font-semibold tracking-tight">
+            Jarek Sikorski art
+          </div>
+          <p class="text-[10px] text-[var(--dim-grey)]/70 text-left">
+            Oryginalne rysunki i autorskie portrety na zamówienie o muzealnej trwałości.
+          </p>
+        </div>
+
+        <!-- Nawigacja -->
+        <nav class="flex flex-wrap gap-x-8 gap-y-4 uppercase tracking-[0.2em] font-semibold text-[10px]">
+          <a href="/catalog" class="hover:text-[var(--charcoal-black)] transition-colors">Works</a>
+          <a href="#commissions" class="hover:text-[var(--charcoal-black)] transition-colors">Commissions</a>
+          <a href="/about" class="hover:text-[var(--charcoal-black)] transition-colors">Story</a>
+          <a href="/cart" class="hover:text-[var(--charcoal-black)] transition-colors">Your Archive</a>
+        </nav>
+      </div>
+
+      <div class="mt-12 flex flex-col sm:flex-row justify-between items-center gap-4 text-[9px] uppercase tracking-[0.25em] text-[var(--dim-grey)]/60 border-t border-[var(--line)]/50 pt-6">
+        <span>© {year} Jarek Sikorski art. Wszystkie prawa zastrzeżone.</span>
+        <div class="flex gap-6">
+          <a href="https://www.instagram.com/art_jarex/" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--charcoal-black)] transition-colors">Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=100080381227839" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--charcoal-black)] transition-colors">Facebook</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</section>
