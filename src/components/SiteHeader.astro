@@ -22,7 +22,7 @@ if (!featuredProduct) {
 }
 ---
 
-<nav class="sticky top-0 z-50 border-b border-line bg-base/80 backdrop-blur-md" aria-label="Main navigation">
+<nav class="sticky top-0 z-50 border-b border-line bg-base/80 backdrop-blur-md transition-transform duration-500" aria-label="Main navigation" data-smart-nav>
   <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6">
     <a href="/" class="font-serif text-xl italic tracking-tight" aria-label="Jarek Sikorski art home">
       Jarek Sikorski art
@@ -278,5 +278,30 @@ if (!featuredProduct) {
         closeMenu({ restoreFocus: false });
       }
     });
+
+    // Smart Sticky Header (Hide on scroll down, show on scroll up)
+    const nav = document.querySelector("[data-smart-nav]");
+    if (nav) {
+      let lastScrollY = window.scrollY;
+      const scrollThreshold = 200;
+      const upThreshold = 15;
+      
+      window.addEventListener("scroll", () => {
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY <= scrollThreshold) {
+          // Always show at the top of the page
+          nav.classList.remove("-translate-y-full");
+        } else if (currentScrollY > lastScrollY) {
+          // Scrolling down -> Hide
+          nav.classList.add("-translate-y-full");
+        } else if (currentScrollY < lastScrollY && (lastScrollY - currentScrollY) > upThreshold) {
+          // Scrolling up -> Show
+          nav.classList.remove("-translate-y-full");
+        }
+        
+        lastScrollY = currentScrollY;
+      }, { passive: true });
+    }
   })();
 </script>

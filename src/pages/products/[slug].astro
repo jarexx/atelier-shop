@@ -226,7 +226,7 @@ function formatDimensions(dimStr: string) {
       });
     }
 
-    // Dynamic Dimensions interactive toggle with GSAP
+    // Dynamic Dimensions interactive toggle with Scramble Effect & LocalStorage
     const toggle = document.querySelector("[data-dim-toggle]");
     if (toggle) {
       const primary = toggle.querySelector("[data-dim-primary]");
@@ -236,40 +236,62 @@ function formatDimensions(dimStr: string) {
         const cmText = primary.textContent || "";
         const inText = (secondary.textContent || "").replace(/[()]/g, "").trim();
         
-        let isCm = true;
-        
-        toggle.addEventListener("click", () => {
-          isCm = !isCm;
+        // Custom Scramble Effect
+        const scramble = (element: HTMLElement, targetText: string) => {
+          const glyphs = "0123456789×.in cm";
+          const length = targetText.length;
+          const frames = 12;
+          let frame = 0;
           
-          const tl = gsap.timeline();
-          
-          // 1. Fade out and slide down
-          tl.to([primary, secondary], {
-            opacity: 0,
-            y: isCm ? -4 : 4,
-            duration: 0.12,
-            ease: "power1.in",
-            onComplete: () => {
-              // 2. Swap text
-              if (isCm) {
-                primary.textContent = cmText;
-                secondary.textContent = `(${inText})`;
+          const interval = setInterval(() => {
+            frame++;
+            let currentText = "";
+            for (let i = 0; i < length; i++) {
+              if (Math.random() < frame / frames) {
+                currentText += targetText[i];
               } else {
-                primary.textContent = inText;
-                secondary.textContent = `(${cmText})`;
+                currentText += glyphs[Math.floor(Math.random() * glyphs.length)];
               }
-              // Set starting position for fade in
-              gsap.set([primary, secondary], { y: isCm ? 4 : -4 });
             }
-          });
+            element.textContent = currentText;
+            if (frame >= frames) {
+              clearInterval(interval);
+              element.textContent = targetText;
+            }
+          }, 16);
+        };
+
+        const updateUI = (unit: 'cm' | 'in', animate = true) => {
+          const primTarget = unit === 'cm' ? cmText : inText;
+          const secTarget = unit === 'cm' ? `(${inText})` : `(${cmText})`;
           
-          // 3. Fade in and slide back to center
-          tl.to([primary, secondary], {
-            opacity: 1,
-            y: 0,
-            duration: 0.2,
-            ease: "power2.out"
-          });
+          if (animate) {
+            scramble(primary as HTMLElement, primTarget);
+            scramble(secondary as HTMLElement, secTarget);
+          } else {
+            primary.textContent = primTarget;
+            secondary.textContent = secTarget;
+          }
+        };
+
+        // 1. Initial State Check (LocalStorage or Auto-detect)
+        let savedUnit = localStorage.getItem("user-dimension-unit") as 'cm' | 'in' | null;
+        if (!savedUnit) {
+          // Auto-detect based on US locale
+          const isUS = navigator.language === 'en-US' || (navigator.languages && navigator.languages.includes('en-US'));
+          savedUnit = isUS ? 'in' : 'cm';
+          localStorage.setItem("user-dimension-unit", savedUnit);
+        }
+        
+        // Apply initial state without animation on page load
+        updateUI(savedUnit, false);
+        
+        // 2. Click Handler
+        toggle.addEventListener("click", () => {
+          const currentUnit = localStorage.getItem("user-dimension-unit") || 'cm';
+          const newUnit = currentUnit === 'cm' ? 'in' : 'cm';
+          localStorage.setItem("user-dimension-unit", newUnit);
+          updateUI(newUnit, true);
         });
       }
     }

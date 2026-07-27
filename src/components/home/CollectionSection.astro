@@ -2,94 +2,195 @@
 import { Image } from "astro:assets";
 import quietImg from "@/assets/images/products/quiet-in-a-white-dress.webp";
 import sittingImg from "@/assets/images/products/sitting-back-woman.webp";
-import wakeningImg from "@/assets/images/products/wakening-of-angela.jpeg";
+import sunraysImg from "@/assets/images/products/sunrays-on-the-blue-sea.webp";
+import mckennaImg from "@/assets/images/products/mckenna-hellam.webp";
+import pensiveImg from "@/assets/images/products/pensive-moment.webp";
+import sideImg from "@/assets/images/products/naked-woman-on-her-side.webp";
 
 const collectionItems = [
   {
     slug: "quiet-in-a-white-dress",
     name: "Quiet in a white dress",
-    technique: "Charcoal & Pastel on toned paper",
-    dimensions: "W 29 × H 40 cm (A3)",
-    price: "1,800 PLN",
     image: quietImg,
-    aspect: "aspect-[3/4]"
+    aspect: "aspect-[3/4]",
+    widthClass: "w-[270px] md:w-[370px]",
+    offset: "translate-y-0"
   },
   {
     slug: "sitting-back-woman",
     name: "Sitting back woman",
-    technique: "Graphite & White Chalk on grey paper",
-    dimensions: "W 29 × H 40 cm (A3)",
-    price: "1,600 PLN",
     image: sittingImg,
-    aspect: "aspect-[4/5] md:translate-y-12"
+    aspect: "aspect-[4/5]",
+    widthClass: "w-[270px] md:w-[370px]",
+    offset: "translate-y-4 md:translate-y-6"
   },
   {
-    slug: "wakening-of-angela",
-    name: "Wakening of Angela",
-    technique: "Sepia & Sanguine on warm paper",
-    dimensions: "W 29 × H 40 cm (A3)",
-    price: "2,000 PLN",
-    image: wakeningImg,
-    aspect: "aspect-[3/4] md:-translate-y-8"
+    slug: "sunrays-on-the-blue-sea",
+    name: "Sunrays on the blue sea",
+    image: sunraysImg,
+    aspect: "aspect-[4/3]", // Landscape horizontal
+    widthClass: "w-[350px] md:w-[480px]",
+    offset: "-translate-y-2 md:-translate-y-4"
+  },
+  {
+    slug: "mckenna-hellam",
+    name: "McKenna Hellam",
+    image: mckennaImg,
+    aspect: "aspect-[4/5]",
+    widthClass: "w-[270px] md:w-[370px]",
+    offset: "translate-y-2 md:translate-y-3"
+  },
+  {
+    slug: "pensive-moment",
+    name: "Pensive moment",
+    image: pensiveImg,
+    aspect: "aspect-[3/4]",
+    widthClass: "w-[270px] md:w-[370px]",
+    offset: "-translate-y-4 md:-translate-y-6"
+  },
+  {
+    slug: "naked-woman-on-her-side",
+    name: "Naked woman on her side",
+    image: sideImg,
+    aspect: "aspect-[4/3]", // Landscape horizontal
+    widthClass: "w-[350px] md:w-[480px]",
+    offset: "translate-y-0"
   }
 ];
 ---
 
-<section class="collection-section px-6 py-24 md:py-36 border-t border-[var(--line)] overflow-hidden">
-  <div class="mx-auto w-full max-w-screen-xl space-y-16">
-    
-    <!-- Sekcja Nagłówka -->
-    <div class="space-y-4 max-w-xl">
-      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
-        Kolekcja Oryginałów 1/1
-      </p>
-      <h2 class="collection-h2 text-4xl sm:text-6xl lg:text-7xl font-serif text-[var(--charcoal-black)] select-none font-semibold">
-        The Collection
-      </h2>
-    </div>
+<section class="horizontal-collection-section relative overflow-hidden border-t border-[var(--line)] py-12 md:py-16 flex flex-col justify-between md:h-screen md:min-h-[720px]">
+  
+  <!-- Static Title Header (stays on screen when section is pinned) -->
+  <div class="mx-auto w-full max-w-screen-xl px-6 md:px-24 space-y-4 z-20">
+    <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--charcoal-muted)] font-medium">
+      Kolekcja Oryginałów 1/1
+    </p>
+    <h2 
+      class="text-4xl sm:text-6xl lg:text-7xl font-serif"
+      style="color: #151413 !important;"
+    >
+      The Collection
+    </h2>
+  </div>
 
-    <!-- Asymetryczny Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 items-start pt-6">
+  <!-- Horizontal scroll viewport container, grow takes up all available vertical space -->
+  <div class="pin-wrap grow overflow-x-auto md:overflow-hidden scrollbar-none w-full mt-6 md:mt-0 flex items-center">
+    <!-- 
+      The scrollable container has the paper texture background. 
+      As GSAP translates this container horizontally, the paper pattern scrolls horizontally 
+      in perfect sync with the drawings, creating a continuous paper roll illusion.
+    -->
+    <div class="scroll-wrap flex flex-row items-center gap-12 md:gap-20 px-6 md:px-24 w-fit py-8 md:py-12">
+      
+      <!-- 6 Drawing Cards with vertical height units for responsive auto-sizing -->
       {
         collectionItems.map((item) => (
-          <div class={`collection-card group flex flex-col space-y-4 cursor-pointer ${item.aspect}`}>
-            <!-- Obrazek w minimalistycznej ramce -->
-            <a href={`/products/${item.slug}`} class="relative w-full h-full overflow-hidden bg-[var(--paper)] rounded-sm shadow-md border border-[var(--dim-grey)]/10 p-4 transition-all duration-500 hover:shadow-xl">
-              <div class="relative w-full h-full overflow-hidden bg-[#faf8f5]">
+          <div class={`flex flex-col space-y-2 cursor-pointer group transition-transform duration-500 shrink-0 w-fit ${item.offset}`}>
+            <!-- Image in minimalist paper frame -->
+            <a href={`/products/${item.slug}`} class="relative overflow-hidden bg-[var(--paper)] border border-[var(--charcoal-muted)]/10 p-4 transition-all duration-500 hover:shadow-xl block">
+              <div class={`relative bg-[#faf8f5] overflow-hidden h-[30vh] md:h-[40vh] ${item.aspect}`}>
                 <Image
                   src={item.image}
-                  alt={`${item.name} — ${item.technique}`}
-                  width={600}
-                  height={800}
-                  format="webp"
-                  loading="lazy"
-                  class="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                  alt={item.name}
+                  width={800}
+                  height={1000}
+                  class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               </div>
             </a>
-            
-            <!-- Metryczka -->
-            <div class="space-y-1.5 px-1">
-              <h3 class="text-lg font-serif text-[var(--charcoal-black)] group-hover:opacity-85 transition-opacity">
-                <a href={`/products/${item.slug}`}>{item.name}</a>
-              </h3>
-              <p class="text-xs text-[var(--dim-grey)] font-sans">
-                {item.technique} · {item.dimensions}
-              </p>
-              <div class="flex items-center justify-between pt-2 border-t border-[var(--line)]">
-                <span class="text-sm font-semibold text-[var(--charcoal-black)] font-sans">{item.price}</span>
-                <a
-                  href={`/products/${item.slug}`}
-                  class="text-[10px] uppercase tracking-[0.2em] text-[var(--dim-grey)] font-semibold transition-colors hover:text-[var(--charcoal-black)]"
-                >
-                  Review Selection →
-                </a>
-              </div>
+            <!-- Text title closer to drawing, using h2 tag, larger font size and bold variable weight -->
+            <div class="flex justify-between items-baseline">
+              <h2 
+                class="text-base md:text-xl font-serif"
+                style="font-variation-settings: 'wght' 620; -webkit-font-smoothing: antialiased; color: #1a1816 !important;"
+              >
+                {item.name}
+              </h2>
             </div>
           </div>
         ))
       }
-    </div>
 
+    </div>
   </div>
+
+  <!-- Empty spacing to align flex layout nicely on desktop -->
+  <div class="hidden md:block h-8"></div>
 </section>
+
+<!-- Hide horizontal scrollbar for mobile native swipes -->
+<style is:global>
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<!-- 
+  Apply the exact same background and backdrop blur as the SiteHeader navigation 
+  (bg-base/80 backdrop-blur-md) to blur out the body background vertical scroll.
+-->
+<style>
+  .horizontal-collection-section {
+    background-color: rgba(250, 248, 245, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector(".horizontal-collection-section");
+  const scrollWrap = document.querySelector(".scroll-wrap");
+
+  if (section && scrollWrap) {
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
+    let triggerInstance: any = null;
+
+    function initScrollTrigger() {
+      if (mediaQuery.matches) {
+        const scrollWidth = (scrollWrap as HTMLElement).scrollWidth;
+        const windowWidth = window.innerWidth;
+        const xTranslation = -(scrollWidth - windowWidth);
+
+        // Pin the entire section, translate only the cards row
+        triggerInstance = gsap.to(scrollWrap, {
+          x: xTranslation,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            pin: true,
+            scrub: 1,
+            start: "top top",
+            end: () => `+=${scrollWidth - windowWidth}`,
+            invalidateOnRefresh: true,
+          }
+        });
+      } else {
+        if (triggerInstance) {
+          triggerInstance.scrollTrigger.kill();
+          triggerInstance = null;
+        }
+        gsap.set(scrollWrap, { clearProps: "all" });
+      }
+    }
+
+    // Initialize and track resize changes
+    initScrollTrigger();
+    window.addEventListener("resize", () => {
+      if (triggerInstance) {
+        triggerInstance.scrollTrigger.kill();
+        triggerInstance = null;
+      }
+      initScrollTrigger();
+    });
+  }
+</script>

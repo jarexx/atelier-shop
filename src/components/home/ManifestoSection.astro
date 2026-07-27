@@ -1,16 +1,119 @@
 ---
 ---
 
-<section class="manifesto-section relative min-h-[70vh] flex items-center justify-center bg-charcoal-texture text-[var(--old-lace)] px-6 py-24 overflow-hidden z-10">
-  <div class="mx-auto w-full max-w-4xl text-center space-y-12 z-10">
-    <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
-      THE ARTIST CREED
-    </p>
-    
-    <div class="space-y-6">
-      <h2 class="manifesto-text text-3xl sm:text-5xl lg:text-6xl font-serif leading-[1.2] text-balance font-normal tracking-wide">
-        Każda narysowana linia to nieodwołalna decyzja. Węgiel i grafit wciśnięte w tonowany papier, chwytające czystą esencję. Bez masowej replikacji, bez cyfrowych masek. Tylko autentyczne, niepowtarzalne oryginały stworzone, by trwać przez stulecia.
+<section class="manifesto-section relative min-h-screen md:min-h-[1100px] flex items-center justify-center bg-charcoal-texture text-[var(--old-lace)] px-6 py-24 z-10">
+  <div class="mx-auto w-full max-w-4xl text-center flex flex-col justify-between min-h-[550px] md:min-h-[900px] z-10">
+    <div class="space-y-8 my-auto w-full">
+      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
+        THE ARTIST CREED
+      </p>
+      
+      <h2 class="manifesto-text text-2xl sm:text-4xl lg:text-5xl font-serif leading-[1.3] text-balance font-normal tracking-wide max-w-3xl mx-auto">
+        “Every stroke is an unfiltered dialogue between charcoal and paper. No mass prints, no digital replication. Only single-edition physical artwork crafted to endure for centuries.”
       </h2>
+      
+      <!-- Artist SVG Signature aligned right with larger gap below -->
+      <div class="pt-6 pb-12 flex justify-end h-32">
+        <svg
+          id="artist-signature"
+          viewBox="0 0 320 100"
+          class="w-56 h-20 text-[var(--sanguine)] opacity-90 mr-4 md:mr-12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <!-- Signature path -->
+          <path
+            class="sig-path"
+            d="M 40 50 C 30 30, 55 10, 65 30 C 75 50, 45 80, 70 80 C 85 80, 95 40, 100 35 C 105 30, 110 50, 110 60 C 115 45, 120 45, 125 60 C 130 50, 135 50, 140 60 C 145 50, 150 50, 155 60 C 155 55, 165 40, 170 45 C 175 50, 170 65, 180 60 C 190 55, 195 20, 200 30 C 205 40, 190 85, 215 75 C 240 65, 270 55, 290 55"
+          />
+          <!-- Underline splash -->
+          <path
+            class="sig-path"
+            d="M 60 85 C 100 85, 160 80, 240 75"
+            stroke-width="1.5"
+          />
+        </svg>
+      </div>
+    </div>
+    
+    <!-- Three Pillars & Story Link aligned to right -->
+    <div class="mt-auto w-full">
+      <!-- 3 separate boxes with NO light borders and bottom margin 16px -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-4">
+        <!-- Box 1 -->
+        <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
+          <div class="space-y-2.5">
+            <!-- Larger Heading Font (serif) Title -->
+            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">30 Years of Heritage</h3>
+            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">Decades of mastering traditional drawing techniques and preserving classical craftsmanship.</div>
+          </div>
+        </div>
+        
+        <!-- Box 2 -->
+        <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
+          <div class="space-y-2.5">
+            <!-- Larger Heading Font (serif) Title -->
+            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">1/1 Unique Originals</h3>
+            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">Absolute absence of print-on-demand editions, digital replicas, or duplicates. Each piece is unique.</div>
+          </div>
+        </div>
+        
+        <!-- Box 3 -->
+        <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
+          <div class="space-y-2.5">
+            <!-- Larger Heading Font (serif) Title -->
+            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">Archival Standards</h3>
+            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">Museum-grade acid-free cotton papers (Canson/Strathmore) paired with archival media to last for centuries.</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Link with animated underline, aligned right, flush with pillars grid and closer spacing -->
+      <div class="flex justify-end">
+        <a 
+          href="/about" 
+          class="group relative inline-flex items-center gap-1.5 text-[13px] text-[var(--dim-grey-light)] hover:text-[var(--old-lace)] transition-colors pb-1"
+        >
+          Read the story
+          <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+          <!-- Animated Underline -->
+          <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[var(--sanguine)] origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100 group-hover:origin-left"></span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate signature drawing on scroll
+  const paths = document.querySelectorAll("#artist-signature .sig-path");
+  if (paths.length > 0) {
+    paths.forEach((path) => {
+      const length = (path as SVGPathElement).getTotalLength();
+      gsap.set(path, {
+        strokeDasharray: length,
+        strokeDashoffset: length
+      });
+    });
+
+    gsap.to(paths, {
+      strokeDashoffset: 0,
+      duration: 1.6,
+      ease: "power2.inOut",
+      stagger: 0.25,
+      scrollTrigger: {
+        trigger: ".manifesto-section",
+        start: "top 45%",
+        toggleActions: "play none none none"
+      }
+    });
+  }
+</script>
