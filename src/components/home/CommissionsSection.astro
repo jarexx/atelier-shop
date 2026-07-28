@@ -7,24 +7,27 @@ import paraImg from "@/assets/images/portraits/para2_1.avif";
 const privateCollectionItems = [
   {
     image: grzegorzImg,
-    alt: "Portret dla Grzegorza"
+    alt: "Portret dla Grzegorza",
+    classes: "max-w-[350px] lg:self-start self-center lg:ml-16"
   },
   {
     image: glassesImg,
-    alt: "Portret kobiety w okularach"
+    alt: "Portret kobiety w okularach",
+    classes: "max-w-[350px] lg:self-end self-center lg:-mt-8"
   },
   {
     image: paraImg,
-    alt: "Portret pary"
+    alt: "Portret pary",
+    classes: "max-w-[560px] self-center lg:mt-4"
   }
 ];
 ---
 
-<section id="commissions" class="commissions-section relative bg-charcoal-texture text-[var(--old-lace)] px-6 py-24 md:py-36 overflow-hidden z-10">
-  <div class="mx-auto w-full max-w-screen-xl grid grid-cols-1 lg:grid-cols-12 gap-16 items-center z-10">
+<section id="commissions" class="commissions-section relative bg-charcoal-texture text-[var(--old-lace)] px-6 py-24 md:py-36 z-10">
+  <div class="mx-auto w-full max-w-screen-xl grid grid-cols-1 lg:grid-cols-12 gap-16 items-start z-10">
     
-    <!-- Lewa kolumna: Informacje o zamówieniach -->
-    <div class="lg:col-span-4 space-y-8 z-10">
+    <!-- Lewa kolumna: Informacje o zamówieniach (przypięte/sticky) -->
+    <div class="lg:col-span-5 lg:sticky lg:top-24 space-y-8 z-10">
       <div class="space-y-4">
         <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
           Portrety na zamówienie
@@ -70,26 +73,25 @@ const privateCollectionItems = [
       </div>
     </div>
 
-    <!-- Prawa kolumna: Siatka rysunków (bez podpisów) -->
-    <div class="lg:col-span-8 space-y-8 z-10">
-      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
+    <!-- Prawa kolumna: Pionowy stos rysunków o asymetrycznym ułożeniu -->
+    <div class="lg:col-span-7 space-y-12 z-10 flex flex-col w-full">
+      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium self-start">
         Rysunki
       </p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="flex flex-col gap-16 w-full">
         {
           privateCollectionItems.map((item) => (
-            <div class="commissions-tile group">
-              <div class="relative aspect-[3/4] overflow-hidden bg-[#221c16] rounded-sm p-2.5 border border-[var(--dim-grey-light)]/20 shadow-md">
-                <div class="relative w-full h-full overflow-hidden bg-[#2d2822]">
+            <div class={`commissions-tile group w-full ${item.classes}`}>
+              <div class="relative overflow-hidden bg-[#221c16] rounded-sm p-3 border border-[var(--dim-grey-light)]/20 shadow-md">
+                <div class="relative w-full overflow-hidden bg-[#2d2822]">
                   <Image
                     src={item.image}
                     alt={item.alt}
-                    width={400}
-                    height={530}
+                    width={800}
                     format="webp"
                     loading="lazy"
-                    class="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                    class="w-full h-auto object-contain transition-transform duration-[1200ms] group-hover:scale-[1.01]"
                   />
                 </div>
               </div>
