@@ -1,16 +1,22 @@
 ---
 const materialBlocks = [
   {
-    title: "Strathmore & Canson Papers",
-    description: "Museum-grade, bezkwasowe papiery tonowane (220g/m²). Odporne na starzenie i żółknięcie, gwarantujące zachowanie pierwotnej czystości rysunku przez stulecia."
+    number: "01",
+    tagline: "Master Substrate (Podłoże)",
+    title: "Clairefontaine PaintON & Canson Heritage (250–300 g/m²)",
+    description: "100% bezkwasowy papier bawełniany wyprodukowany zgodnie z normą trwałości ISO 9706. Wolny od wybielaczy optycznych (OBA-free), co gwarantuje, że papier nie żółknie, nie kruszeje i zachowuje swój naturalny, szlachetny odcień przez wieki."
   },
   {
-    title: "Archival Media",
-    description: "Rysunki są wykonywane z użyciem światłotrwałego grafitu, naturalnego węgla wierzbowego oraz ołówków węglowych. Zapewniają one głębokie, matowe czernie odporne na światło."
+    number: "02",
+    tagline: "Pure Mineral Pigments (Medium)",
+    title: "Natural Charcoal, Graphite & Mineral Sepia",
+    description: "Stosowane przeze mnie media to czyste, naturalne pigmenty mineralne. W przeciwieństwie do farb czy tuszy cyfrowych, czysty węgiel drzewny i grafit są całkowicie niewrażliwe na promieniowanie UV — nie blakną i nie zmieniają waloru pod wpływem światła."
   },
   {
-    title: "Protective Fixatives",
-    description: "Każda tradycyjna praca jest zabezpieczana bezbarwną fiksatywą klasy muzealnej. Chroni ona rysunek przed promieniowaniem UV, rozmazywaniem i czynnikami atmosferycznymi."
+    number: "03",
+    tagline: "Museum Fixation (Ochrona)",
+    title: "Archival Non-Yellowing Protective Varnish",
+    description: "Każdy rysunek zostaje utrwalony matową, bezżółknącą fiksatywą archiwalną. Zabezpiecza ona delikatny pył węglowy przed osypywaniem i mikrouszkodzeniami mechanicznymi, chroniąc głęboką, aksamitną czerń bez tworzenia sztucznej, błyszczącej powłoki."
   }
 ];
 
@@ -34,13 +40,18 @@ const year = new Date().getFullYear();
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-2">
         {
           materialBlocks.map((block) => (
-            <div class="space-y-3 p-6 bg-[var(--paper)] rounded-sm border border-[var(--dim-grey)]/10 shadow-sm transition-all duration-300 hover:shadow-md">
-              <h3 class="text-lg font-serif text-[var(--charcoal-black)]">
-                {block.title}
-              </h3>
-              <p class="text-xs text-[var(--dim-grey)] leading-relaxed font-sans">
-                {block.description}
-              </p>
+            <div class="p-6 bg-[var(--paper)] rounded-sm border border-[var(--dim-grey)]/5 shadow-sm transition-all duration-300 hover:shadow-md">
+              <span class="text-[10px] uppercase tracking-[0.2em] text-[var(--sanguine)] font-mono block mb-3.5">
+                {block.number} / {block.tagline}
+              </span>
+              <div class="space-y-1.5">
+                <h3 class="text-md font-serif text-[var(--charcoal-black)] leading-snug" style="font-weight: 550; font-variation-settings: 'wght' 550;">
+                  {block.title}
+                </h3>
+                <p class="text-xs text-[var(--dim-grey)] leading-relaxed font-sans">
+                  {block.description}
+                </p>
+              </div>
             </div>
           ))
         }

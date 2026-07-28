@@ -65,18 +65,22 @@ function formatDimensions(dimStr: string) {
   <div class="mx-auto max-w-screen-xl px-6 py-12">
     <section class="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
       <div class="space-y-6 lg:col-span-7" data-product-gallery>
-        <div class="relative aspect-[4/5] overflow-hidden rounded-[min(1vw,12px)] bg-paper">
+        <div class="relative overflow-hidden bg-white p-4 sm:p-6 md:p-8 shadow-md border border-[var(--border-subtle)]">
           {
             product.images.map((image, index) => (
-              <div class:list={["absolute inset-0", index !== 0 && "hidden"]} data-gallery-panel={index}>
+              <div
+                class:list={[index !== 0 && "hidden", "w-full flex justify-center items-center cursor-zoom-in group/zoom"]}
+                data-gallery-panel={index}
+                data-open-lightbox={index}
+                title="Kliknij, aby otworzyć pełnoekranową galerię"
+              >
                 <Image
                   src={image}
                   alt={`${product.name} — view ${index + 1}`}
                   width={1440}
-                  height={1800}
                   format="webp"
                   loading={index === 0 ? "eager" : "lazy"}
-                  class="atelier-fade-in h-full w-full object-cover"
+                  class="atelier-fade-in w-full h-auto max-h-[85vh] object-contain transition-transform duration-500 group-hover/zoom:scale-[1.015]"
                 />
               </div>
             ))
@@ -88,14 +92,14 @@ function formatDimensions(dimStr: string) {
               <button
                 type="button"
                 class:list={[
-                  "aspect-square overflow-hidden rounded-[min(1vw,12px)] bg-paper ring-1 transition-all",
+                  "aspect-square overflow-hidden bg-white p-1.5 ring-1 transition-all cursor-pointer",
                   index === 0 ? "ring-ink" : "ring-line hover:ring-ink/40",
                 ]}
                 data-gallery-thumb={index}
                 aria-label={`Show view ${index + 1}`}
                 aria-pressed={index === 0 ? "true" : "false"}
               >
-                <Image src={image} alt="" width={360} height={360} format="webp" loading="lazy" class="h-full w-full object-cover" />
+                <Image src={image} alt="" width={360} format="webp" loading="lazy" class="h-full w-full object-contain" />
               </button>
             ))
           }
@@ -163,6 +167,76 @@ function formatDimensions(dimStr: string) {
         {related.map((item) => <ProductCard product={item} />)}
       </div>
     </section>
+  </div>
+
+  <!-- Fullscreen Lightbox Modal -->
+  <div
+    id="lightbox-modal"
+    class="fixed inset-0 z-50 hidden bg-[var(--charcoal-black)]/95 backdrop-blur-md flex-col justify-between p-4 sm:p-8"
+    aria-hidden="true"
+  >
+    <!-- Top bar: image counter and close button -->
+    <div class="flex justify-between items-center text-[var(--old-lace)] z-10 w-full max-w-screen-xl mx-auto">
+      <span id="lightbox-counter" class="text-xs uppercase tracking-widest font-mono text-[var(--dim-grey-light)]">
+        1 / {product.images.length}
+      </span>
+      <button
+        id="lightbox-close"
+        type="button"
+        class="p-2 text-xs uppercase tracking-[0.2em] font-semibold text-[var(--old-lace)] hover:text-[var(--sanguine)] transition-colors cursor-pointer"
+        aria-label="Close gallery"
+      >
+        Zamknij ✕
+      </button>
+    </div>
+
+    <!-- Main image viewport with prev/next buttons -->
+    <div class="relative flex-1 flex items-center justify-center p-2 sm:p-6 overflow-hidden my-auto">
+      {product.images.length > 1 && (
+        <button
+          id="lightbox-prev"
+          type="button"
+          class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-3.5 rounded-full bg-[var(--charcoal-black)]/80 text-[var(--old-lace)] border border-white/10 hover:bg-[var(--sanguine)] hover:border-[var(--sanguine)] transition-all cursor-pointer"
+          aria-label="Previous image"
+        >
+          ←
+        </button>
+      )}
+
+      <div class="relative max-w-full max-h-full flex items-center justify-center p-3 sm:p-6 bg-white border border-white/20 shadow-2xl">
+        {product.images.map((image, idx) => (
+          <div
+            class:list={["lightbox-panel", idx !== 0 && "hidden", "max-w-full max-h-[82vh] flex items-center justify-center"]}
+            data-lightbox-index={idx}
+          >
+            <Image
+              src={image}
+              alt={`${product.name} — view ${idx + 1}`}
+              width={2000}
+              format="webp"
+              loading="lazy"
+              class="max-w-full max-h-[78vh] w-auto h-auto object-contain select-none"
+            />
+          </div>
+        ))}
+      </div>
+
+      {product.images.length > 1 && (
+        <button
+          id="lightbox-next"
+          type="button"
+          class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-3.5 rounded-full bg-[var(--charcoal-black)]/80 text-[var(--old-lace)] border border-white/10 hover:bg-[var(--sanguine)] hover:border-[var(--sanguine)] transition-all cursor-pointer"
+          aria-label="Next image"
+        >
+          →
+        </button>
+      )}
+    </div>
+
+    <!-- Bottom caption -->
+    <div class="text-center text-[10px] text-[var(--dim-grey-light)] uppercase tracking-[0.2em] z-10 w-full">
+      {product.name} · Jarek Sikorski art
+    </div>
   </div>
 
   <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -294,6 +368,81 @@ function formatDimensions(dimStr: string) {
           updateUI(newUnit, true);
         });
       }
+    }
+
+    // Lightbox Modal Interactive Logic
+    const lightboxModal = document.getElementById("lightbox-modal");
+    const lightboxClose = document.getElementById("lightbox-close");
+    const lightboxPrev = document.getElementById("lightbox-prev");
+    const lightboxNext = document.getElementById("lightbox-next");
+    const lightboxCounter = document.getElementById("lightbox-counter");
+    const lightboxPanels = Array.from(document.querySelectorAll("[data-lightbox-index]"));
+    const openTriggers = Array.from(document.querySelectorAll("[data-open-lightbox]"));
+
+    let currentLightboxIdx = 0;
+
+    function showLightboxIndex(idx: number) {
+      if (lightboxPanels.length === 0) return;
+      currentLightboxIdx = (idx + lightboxPanels.length) % lightboxPanels.length;
+
+      lightboxPanels.forEach((panel, i) => {
+        panel.classList.toggle("hidden", i !== currentLightboxIdx);
+      });
+
+      if (lightboxCounter) {
+        lightboxCounter.textContent = `${currentLightboxIdx + 1} / ${lightboxPanels.length}`;
+      }
+    }
+
+    function openLightbox(idx: number) {
+      if (!lightboxModal) return;
+      showLightboxIndex(idx);
+      lightboxModal.classList.remove("hidden");
+      lightboxModal.classList.add("flex");
+      lightboxModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      if (!lightboxModal) return;
+      lightboxModal.classList.add("hidden");
+      lightboxModal.classList.remove("flex");
+      lightboxModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    openTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const idx = parseInt((trigger as HTMLElement).dataset.openLightbox || "0", 10);
+        openLightbox(idx);
+      });
+    });
+
+    if (lightboxClose) {
+      lightboxClose.addEventListener("click", closeLightbox);
+    }
+
+    if (lightboxPrev) {
+      lightboxPrev.addEventListener("click", () => showLightboxIndex(currentLightboxIdx - 1));
+    }
+
+    if (lightboxNext) {
+      lightboxNext.addEventListener("click", () => showLightboxIndex(currentLightboxIdx + 1));
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (!lightboxModal || lightboxModal.classList.contains("hidden")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") showLightboxIndex(currentLightboxIdx - 1);
+      if (e.key === "ArrowRight") showLightboxIndex(currentLightboxIdx + 1);
+    });
+
+    if (lightboxModal) {
+      lightboxModal.addEventListener("click", (e) => {
+        if (e.target === lightboxModal) {
+          closeLightbox();
+        }
+      });
     }
   </script>
   </main>
