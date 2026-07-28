@@ -88,13 +88,56 @@
   </div>
 </section>
 
+<style>
+  .manifesto-text :global(.credo-char) {
+    display: inline-block;
+    white-space: pre;
+    will-change: transform, opacity;
+  }
+</style>
+
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Animate signature drawing on scroll
+  // 1. Scroll to Scatter (Charcoal Dust Evaporation Effect)
+  const title = document.querySelector(".manifesto-text");
+  if (title) {
+    const text = (title.textContent || "").trim();
+    title.innerHTML = "";
+    
+    for (let char of text) {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.className = "credo-char";
+      title.appendChild(span);
+    }
+
+    const chars = title.querySelectorAll(".credo-char");
+    
+    gsap.to(chars, {
+      x: () => gsap.utils.random(-120, 120),
+      y: () => gsap.utils.random(-180, -60), // float upwards like dust/smoke
+      rotation: () => gsap.utils.random(-80, 80),
+      scale: () => gsap.utils.random(0.3, 1.2),
+      opacity: 0,
+      stagger: {
+        amount: 0.6,
+        from: "random"
+      },
+      scrollTrigger: {
+        trigger: ".manifesto-section",
+        start: "top 20%",
+        end: "bottom 45%",
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+  }
+
+  // 2. Animate signature drawing on scroll
   const paths = document.querySelectorAll("#artist-signature .sig-path");
   if (paths.length > 0) {
     paths.forEach((path) => {

@@ -35,10 +35,9 @@ import EducationContactSection from "@/components/home/EducationContactSection.a
             <span class="inline-block h-px w-8 bg-ink/40"></span>
             Småland, Sweden · Est. 2018
           </p>
-          <p class="text-balance font-serif text-4xl leading-[1.1]">
-            Hand-carved pieces
-            <br />
-            <span class="italic text-accent">from the northern woods.</span>
+          <p class="text-balance font-serif text-4xl leading-[1.1] hero-title">
+            <span class="hero-line block" data-hero-line>Hand-carved pieces</span>
+            <span class="hero-line block italic text-accent" data-hero-line>from the northern woods.</span>
           </p>
           <p class="max-w-[48ch] text-pretty leading-relaxed text-faded">
             A small, slow catalogue of seating, tables and storage — solid oak, ash and walnut,
@@ -64,7 +63,7 @@ import EducationContactSection from "@/components/home/EducationContactSection.a
         </div>
       </div>
 
-      <div class="relative hidden h-screen min-h-[700px] md:h-screen md:min-h-[1100px] w-full md:block">
+      <div class="relative hidden h-[calc(100vh-4rem)] min-h-[600px] md:h-[calc(100vh-4rem)] md:min-h-[750px] w-full md:block">
         <Image
           src={heroImg}
           alt="Hand-carved sculptural walnut lounge chair in a sunlit atelier"
@@ -74,7 +73,7 @@ import EducationContactSection from "@/components/home/EducationContactSection.a
           loading="eager"
           decoding="sync"
           class="absolute inset-0 h-full w-full object-cover"
-          style="object-position: right clamp(0%, calc(50% - (10vw - 153.6px) * 2.5), 50%)"
+          style="object-position: 100% 65%"
         />
         <div
           aria-hidden="true"
@@ -94,10 +93,9 @@ import EducationContactSection from "@/components/home/EducationContactSection.a
               <span class="inline-block h-px w-8 bg-ink/40"></span>
               Småland, Sweden · Est. 2018
             </p>
-            <p class="text-balance font-serif text-5xl leading-[1.1] lg:text-6xl">
-              Hand-carved pieces
-              <br />
-              <span class="italic text-accent">from the northern woods.</span>
+            <p class="text-balance font-serif text-5xl leading-[1.1] lg:text-6xl hero-title">
+              <span class="hero-line block" data-hero-line>Hand-carved pieces</span>
+              <span class="hero-line block italic text-accent" data-hero-line>from the northern woods.</span>
             </p>
             <p class="max-w-[48ch] text-pretty leading-relaxed text-faded md:text-lg">
               A small, slow catalogue of seating, tables and storage — solid oak, ash and walnut,
@@ -137,3 +135,52 @@ import EducationContactSection from "@/components/home/EducationContactSection.a
     <EducationContactSection />
   </main>
 </BaseLayout>
+
+<style>
+  .hero-title :global(.hero-char) {
+    font-family: var(--font-serif);
+    font-variation-settings: 'wght' var(--char-wght, 400);
+    display: inline-block;
+    white-space: pre;
+    will-change: font-variation-settings;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  // Find all elements marked as data-hero-line
+  const lines = document.querySelectorAll("[data-hero-line]");
+
+  lines.forEach((line) => {
+    const text = (line.textContent || "").trim();
+    line.innerHTML = "";
+    
+    for (let char of text) {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.className = "hero-char";
+      line.appendChild(span);
+    }
+  });
+
+  // Run letter bolding animation line by line on load
+  const tl = gsap.timeline({ delay: 0.25 });
+
+  const line1Chars = document.querySelectorAll(".hero-title span:first-child .hero-char");
+  const line2Chars = document.querySelectorAll(".hero-title span:last-child .hero-char");
+
+  tl.to(line1Chars, {
+    "--char-wght": 720,
+    duration: 1.0,
+    stagger: 0.035,
+    ease: "power2.out"
+  });
+
+  tl.to(line2Chars, {
+    "--char-wght": 720,
+    duration: 1.0,
+    stagger: 0.035,
+    ease: "power2.out"
+  }, "-=0.7");
+</script>

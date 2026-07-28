@@ -122,3 +122,51 @@ const ogImage = image ? new URL(image.src ?? image, Astro.site ?? Astro.url.orig
     {includeFooter && <SiteFooter />}
   </body>
 </html>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  // Setup ScrollTrigger reveal animations (Elastic Wave Reveal using SplitText)
+  function initTextReveals() {
+    const targets = document.querySelectorAll(
+      "main h2:not(.manifesto-text):not(.scroll-wrap h2), main h3:not(.scroll-wrap h3), main h4, main p:not(.sr-only):not(.hero-title p):not(.manifesto-section p):not(.education-contact-section footer p):not(nav p):not(.scroll-wrap p)"
+    );
+
+    targets.forEach((target) => {
+      const htmlEl = target as HTMLElement;
+      
+      // Split text into lines (single level)
+      const split = new SplitText(htmlEl, {
+        type: "lines",
+        linesClass: "line-inner block origin-top-left"
+      });
+
+      // Animate lines using the gbgeaZM Pen parameters
+      gsap.from(split.lines, {
+        y: 20,
+        rotation: 5,
+        opacity: 0,
+        transformOrigin: "0% 0%",
+        duration: 1.3,
+        stagger: 0.18,
+        ease: "back.out(1)",
+        scrollTrigger: {
+          trigger: htmlEl,
+          start: "top 88%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+  }
+
+  // Execute on document ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initTextReveals);
+  } else {
+    initTextReveals();
+  }
+</script>

@@ -33,10 +33,15 @@ export async function getProduct(slug: string): Promise<Product | undefined> {
 
 export function getRelated(products: Product[], slug: string, limit = 3): Product[] {
   const current = products.find((product) => product.slug === slug);
-  if (!current) return products.slice(0, limit);
+  
+  // Filter out the current product and any Private Collection drawings
+  const candidates = products.filter(
+    (product) => product.slug !== slug && product.leadTime !== "Private Collection"
+  );
 
-  return products
-    .filter((product) => product.slug !== slug)
+  if (!current) return candidates.slice(0, limit);
+
+  return candidates
     .sort((a, b) => {
       const aScore = a.category === current.category ? -1 : 1;
       const bScore = b.category === current.category ? -1 : 1;

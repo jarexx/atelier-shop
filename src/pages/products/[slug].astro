@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   const products = await getProducts();
   return products.map((product) => ({
     params: { slug: product.slug },
-    props: { product, related: getRelated(products, product.slug) },
+    props: { product, related: getRelated(products, product.slug, 8) },
   }));
 }
 
@@ -65,41 +65,50 @@ function formatDimensions(dimStr: string) {
   <div class="mx-auto max-w-screen-xl px-6 py-12">
     <section class="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
       <div class="space-y-6 lg:col-span-7" data-product-gallery>
-        <div class="relative overflow-hidden bg-white p-4 sm:p-6 md:p-8 shadow-md border border-[var(--border-subtle)]">
+        <div class="relative overflow-hidden bg-[var(--paper)] p-4 shadow-md border border-[var(--charcoal-muted)]/10 w-full md:w-fit mx-auto flex justify-center items-center">
           {
             product.images.map((image, index) => (
               <div
-                class:list={[index !== 0 && "hidden", "w-full flex justify-center items-center cursor-zoom-in group/zoom"]}
+                class:list={[
+                  index !== 0 && "hidden", 
+                  "w-full flex justify-center items-center cursor-zoom-in group/zoom"
+                ]}
                 data-gallery-panel={index}
                 data-open-lightbox={index}
                 title="Kliknij, aby otworzyć pełnoekranową galerię"
               >
-                <Image
-                  src={image}
-                  alt={`${product.name} — view ${index + 1}`}
-                  width={1440}
-                  format="webp"
-                  loading={index === 0 ? "eager" : "lazy"}
-                  class="atelier-fade-in w-full h-auto max-h-[85vh] object-contain transition-transform duration-500 group-hover/zoom:scale-[1.015]"
-                />
+                {/* Passe-partout frame that shrink-wraps the drawing */}
+                <div class="bg-[#faf8f5] p-6 md:p-10 shadow-[inset_0_2px_8px_rgba(21,20,19,0.03)] w-full md:w-fit flex justify-center items-center overflow-hidden">
+                  {/* Drawing sheet */}
+                  <div class="relative overflow-hidden shadow-[0_2px_6px_rgba(21,20,19,0.05)] border border-[var(--charcoal-muted)]/5">
+                    <Image
+                      src={image}
+                      alt={`${product.name} — view ${index + 1}`}
+                      width={1440}
+                      format="webp"
+                      loading={index === 0 ? "eager" : "lazy"}
+                      class="atelier-fade-in w-auto h-auto max-h-[85vh] max-w-full object-contain transition-transform duration-700 ease-out group-hover/zoom:scale-105"
+                    />
+                  </div>
+                </div>
               </div>
             ))
           }
         </div>
-        <div class="grid grid-cols-3 gap-4">
+        <div class="flex flex-row justify-center gap-3 mt-6">
           {
             product.images.map((image, index) => (
               <button
                 type="button"
                 class:list={[
-                  "aspect-square overflow-hidden bg-white p-1.5 ring-1 transition-all cursor-pointer",
-                  index === 0 ? "ring-ink" : "ring-line hover:ring-ink/40",
+                  "size-14 md:size-20 overflow-hidden bg-[var(--paper)] p-0.5 border transition-all cursor-pointer",
+                  index === 0 ? "border-[var(--ink)]" : "border-[var(--charcoal-muted)]/10 hover:border-[var(--ink)]/40",
                 ]}
                 data-gallery-thumb={index}
                 aria-label={`Show view ${index + 1}`}
                 aria-pressed={index === 0 ? "true" : "false"}
               >
-                <Image src={image} alt="" width={360} format="webp" loading="lazy" class="h-full w-full object-contain" />
+                <Image src={image} alt="" width={160} height={160} format="webp" loading="lazy" class="h-full w-full object-cover" />
               </button>
             ))
           }
@@ -163,8 +172,18 @@ function formatDimensions(dimStr: string) {
           View all
         </a>
       </div>
-      <div class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3">
-        {related.map((item) => <ProductCard product={item} />)}
+      <div class="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {
+          related.map((item, index) => (
+            <div class:list={[
+              index >= 4 && "hidden",
+              index >= 4 && index < 6 && "md:block",
+              index >= 6 && "lg:block",
+            ]}>
+              <ProductCard product={item} />
+            </div>
+          ))
+        }
       </div>
     </section>
   </div>
@@ -196,36 +215,38 @@ function formatDimensions(dimStr: string) {
         <button
           id="lightbox-prev"
           type="button"
-          class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-3.5 rounded-full bg-[var(--charcoal-black)]/80 text-[var(--old-lace)] border border-white/10 hover:bg-[var(--sanguine)] hover:border-[var(--sanguine)] transition-all cursor-pointer"
+          class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-20 p-3.5 bg-[var(--charcoal-black)]/80 text-[var(--old-lace)] border border-white/10 hover:bg-[var(--sanguine)] hover:border-[var(--sanguine)] transition-all cursor-pointer"
           aria-label="Previous image"
         >
           ←
         </button>
       )}
 
-      <div class="relative max-w-full max-h-full flex items-center justify-center p-3 sm:p-6 bg-white border border-white/20 shadow-2xl">
-        {product.images.map((image, idx) => (
-          <div
-            class:list={["lightbox-panel", idx !== 0 && "hidden", "max-w-full max-h-[82vh] flex items-center justify-center"]}
-            data-lightbox-index={idx}
-          >
-            <Image
-              src={image}
-              alt={`${product.name} — view ${idx + 1}`}
-              width={2000}
-              format="webp"
-              loading="lazy"
-              class="max-w-full max-h-[78vh] w-auto h-auto object-contain select-none"
-            />
-          </div>
-        ))}
+      <div class="relative max-w-full max-h-full flex items-center justify-center p-4 bg-[var(--paper)] border border-[var(--charcoal-muted)]/20 shadow-2xl">
+        <div class="bg-[#faf8f5] overflow-hidden p-6 md:p-10 max-w-full max-h-[82vh] flex items-center justify-center">
+          {product.images.map((image, idx) => (
+            <div
+              class:list={["lightbox-panel", idx !== 0 && "hidden", "max-w-full max-h-[78vh] flex items-center justify-center"]}
+              data-lightbox-index={idx}
+            >
+              <Image
+                src={image}
+                alt={`${product.name} — view ${idx + 1}`}
+                width={2000}
+                format="webp"
+                loading="lazy"
+                class="max-w-full max-h-[74vh] w-auto h-auto object-contain select-none"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       {product.images.length > 1 && (
         <button
           id="lightbox-next"
           type="button"
-          class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-3.5 rounded-full bg-[var(--charcoal-black)]/80 text-[var(--old-lace)] border border-white/10 hover:bg-[var(--sanguine)] hover:border-[var(--sanguine)] transition-all cursor-pointer"
+          class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-20 p-3.5 bg-[var(--charcoal-black)]/80 text-[var(--old-lace)] border border-white/10 hover:bg-[var(--sanguine)] hover:border-[var(--sanguine)] transition-all cursor-pointer"
           aria-label="Next image"
         >
           →

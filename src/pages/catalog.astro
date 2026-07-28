@@ -63,6 +63,7 @@ const { categories: allCategories, materials: allMaterials } = getProductFilters
             data-category={product.category}
             data-material={product.material}
             data-price={product.price}
+            data-lead-time={product.leadTime}
             data-index={index}
           >
             <ProductCard product={product} eager={index < 3} />
@@ -108,14 +109,17 @@ const { categories: allCategories, materials: allMaterials } = getProductFilters
     const filters = { category: "all", material: "all" };
 
     function applyFilters() {
+      const showOnlyForSale = sort.value === "price-asc" || sort.value === "price-desc";
+
       const visible = items.filter((item) => {
         const itemCategories = item.dataset.category ? item.dataset.category.split(",").map(s => s.trim()) : [];
         const itemMaterials = item.dataset.material ? item.dataset.material.split(",").map(s => s.trim()) : [];
         
         const categoryMatch = filters.category === "all" || itemCategories.includes(filters.category);
         const materialMatch = filters.material === "all" || itemMaterials.includes(filters.material);
+        const saleMatch = !showOnlyForSale || item.dataset.leadTime !== "Private Collection";
         
-        return categoryMatch && materialMatch;
+        return categoryMatch && materialMatch && saleMatch;
       });
 
       visible.sort((a, b) => {
