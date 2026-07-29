@@ -116,10 +116,12 @@ const ogImage = image ? new URL(image.src ?? image, Astro.site ?? Astro.url.orig
       Skip to content
     </a>
     {includeHeader && <SiteHeader currentPath={Astro.url.pathname} />}
-    <div>
-      <slot />
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+        <slot />
+        {includeFooter && <SiteFooter />}
+      </div>
     </div>
-    {includeFooter && <SiteFooter />}
   </body>
 </html>
 
@@ -127,13 +129,31 @@ const ogImage = image ? new URL(image.src ?? image, Astro.site ?? Astro.url.orig
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { SplitText } from "gsap/SplitText";
+  import { ScrollSmoother } from "gsap/ScrollSmoother";
 
-  gsap.registerPlugin(ScrollTrigger, SplitText);
+  gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother);
 
-  // Setup ScrollTrigger reveal animations (Elastic Wave Reveal using SplitText)
+  // Expose GSAP globally for inline scripts (e.g. catalog filtering)
+  (window as any).gsap = gsap;
+  (window as any).ScrollTrigger = ScrollTrigger;
+
+  // Initialize GSAP ScrollSmoother for silky smooth momentum scrolling
+  function initSmoother() {
+    if (window.innerWidth >= 768 && !window.matchMedia("(pointer: coarse)").matches) {
+      ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 1.2,
+        effects: true,
+        smoothTouch: 0.1
+      });
+    }
+  }
+
+  // Setup ScrollTrigger reveal animations (Elastic Wave Reveal using SplitText for text paragraphs)
   function initTextReveals() {
     const targets = document.querySelectorAll(
-      "main h2:not(.manifesto-text):not(.scroll-wrap h2), main h3:not(.scroll-wrap h3), main h4, main p:not(.sr-only):not(.hero-title p):not(.manifesto-section p):not(.education-contact-section footer p):not(nav p):not(.scroll-wrap p)"
+      "main p:not(.sr-only):not(.hero-title p):not(.manifesto-section p):not(.education-contact-section footer p):not(nav p):not(.scroll-wrap p)"
     );
 
     targets.forEach((target) => {
@@ -163,10 +183,51 @@ const ogImage = image ? new URL(image.src ?? image, Astro.site ?? Astro.url.orig
     });
   }
 
+  // Setup stagger reveal for horizontal multi-block containers (animates items on scroll as they enter viewport)
+  function initStaggerGrids() {
+    const gridContainers = document.querySelectorAll("[data-stagger-grid]");
+
+    gridContainers.forEach((container) => {
+      const items = Array.from(container.children).filter(
+        (child) => getComputedStyle(child).display !== "none"
+      );
+      const customStart = (container as HTMLElement).dataset.staggerStart || "top 88%";
+
+      if (items.length > 0) {
+        gsap.set(items, { y: 32, opacity: 0 });
+
+        ScrollTrigger.batch(items, {
+          start: customStart,
+          once: true,
+          onEnter: (batch) => {
+            gsap.to(batch, {
+              y: 0,
+              opacity: 1,
+              duration: 0.95,
+              stagger: 0.22,
+              ease: "power2.out",
+              clearProps: "transform,opacity"
+            });
+          }
+        });
+      }
+    });
+  }
+
   // Execute on document ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initTextReveals);
+    document.addEventListener("DOMContentLoaded", () => {
+      initSmoother();
+      initTextReveals();
+      initStaggerGrids();
+    });
   } else {
+    initSmoother();
     initTextReveals();
+    initStaggerGrids();
   }
+
+  window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
+  });
 </script>

@@ -55,7 +55,7 @@ const { categories: allCategories, materials: allMaterials } = getProductFilters
     <p class="hidden py-32 text-center font-serif text-2xl text-faded" data-catalog-empty>
       No pieces match that combination.
     </p>
-    <div class="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3" data-catalog-grid>
+    <div class="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3" data-catalog-grid data-stagger-grid>
       {
         products.map((product, index) => (
           <article
@@ -128,16 +128,39 @@ const { categories: allCategories, materials: allMaterials } = getProductFilters
         return Number(a.dataset.index) - Number(b.dataset.index);
       });
 
-      items.forEach((item) => (item.hidden = true));
+      items.forEach((item) => {
+        item.hidden = true;
+        item.style.display = "none";
+      });
+
       visible.forEach((item) => {
         item.hidden = false;
+        item.style.display = "";
         grid.appendChild(item);
+        if (window.gsap) {
+          window.gsap.set(item, { opacity: 1, y: 0, clearProps: "transform,opacity" });
+        } else {
+          item.style.opacity = "1";
+          item.style.transform = "none";
+        }
       });
+
+      if (window.gsap && visible.length > 0) {
+        window.gsap.fromTo(
+          visible,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power2.out", clearProps: "transform,opacity" }
+        );
+      }
 
       countNode.textContent = String(visible.length);
       countLabel.textContent = visible.length === 1 ? "piece" : "pieces";
       empty.classList.toggle("hidden", visible.length > 0);
       grid.classList.toggle("hidden", visible.length === 0);
+
+      if (window.ScrollTrigger) {
+        window.ScrollTrigger.refresh();
+      }
     }
 
     document.querySelectorAll("[data-filter-group]").forEach((group) => {
