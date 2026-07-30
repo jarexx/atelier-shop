@@ -1,23 +1,36 @@
 ---
+
 ---
 
-<section class="manifesto-section relative min-h-[130vh] md:min-h-[1450px] flex items-center justify-center bg-charcoal-texture text-[var(--old-lace)] px-6 pt-56 md:pt-72 pb-36 md:pb-48 z-10">
-  <!-- Thin vertical line extending from top edge of section down to touch tagline -->
-  <div class="creed-line absolute top-0 left-1/2 -translate-x-1/2 w-[1px] bg-[var(--sanguine)] opacity-80 pointer-events-none origin-top overflow-hidden"></div>
+<section
+  class="manifesto-section relative h-screen min-h-screen flex items-center justify-center bg-charcoal-texture text-[var(--old-lace)] px-6 py-12 z-10 overflow-hidden"
+>
+  <!-- Thin vertical line extending from top edge of section down to touch tagline (temporarily hidden for isolation testing) -->
+  <!-- <div
+    class="creed-line absolute top-0 left-1/2 -translate-x-1/2 w-[1px] bg-[var(--sanguine)] opacity-80 pointer-events-none origin-top overflow-hidden"
+  >
+  </div> -->
 
-  <div class="mx-auto w-full max-w-5xl text-center flex flex-col justify-between min-h-[700px] md:min-h-[1050px] space-y-20 z-10">
-    <div class="space-y-8 pt-24 md:pt-36 w-full flex flex-col items-center">
+  <div
+    class="mx-auto w-full max-w-5xl text-center flex flex-col justify-between min-h-[600px] space-y-12 z-10"
+  >
+    <div class="space-y-6 pt-12 w-full flex flex-col items-center">
       <!-- Animated Tagline -->
-      <p class="artist-creed-tag text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
+      <p
+        class="artist-creed-tag text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium"
+      >
         THE ARTIST CREED
       </p>
-      
-      <h2 class="text-appearing manifesto-text text-3xl sm:text-5xl lg:text-6xl font-serif leading-[1.35] text-balance font-normal tracking-wide max-w-4xl mx-auto pt-12 md:pt-16">
-        “Every stroke is an unfiltered dialogue between charcoal and paper. No mass prints, no digital replication. Only single-edition physical artwork crafted to endure for centuries.”
+
+      <h2
+        class="text-appearing manifesto-text text-3xl sm:text-5xl lg:text-6xl font-serif leading-[1.35] text-balance font-normal tracking-wide max-w-4xl mx-auto pt-6"
+      >
+        “Every stroke is an unfiltered dialogue between charcoal and paper. No mass prints, no
+        digital replication. Only single-edition physical artwork crafted to endure for centuries.”
       </h2>
-      
+
       <!-- Artist SVG Signature aligned right with larger gap below -->
-      <div class="pt-10 pb-16 flex justify-end w-full max-w-4xl h-32">
+      <div class="pt-6 pb-8 flex justify-end w-full max-w-4xl h-24">
         <svg
           id="artist-signature"
           viewBox="0 0 258.67 56.92"
@@ -26,7 +39,9 @@
         >
           <defs>
             <clipPath id="clippath">
-              <path d="M144.81 34.87c.49-3.15 6.77-4.31 9.71-5.78 3.06-1.32 5.67-2.54 7.3-5.13 11.62-16.2-36.65-30.27-28.64-7.9 4.65 11.55-3.98 30.53 2.72 36.9 2.7 1.26 4.93-3.04 5.31-5.49.72-1.89-1.52-5.85 1.63-5.46 3.88.71 18.83 7.68 20.42 3.14-.18-1.12-1.47-1.85-2.4-2.34-3.77-1.91-9.2-3.92-13.05-5.59-1.07-.51-2.69-1.12-3.01-2.34Zm-1.92-8.37c-13.98-27.98 20.92-16.71 11.59-5.3-2.23 2.62-8.46 9.11-11.59 5.3M95.52 43.69c-3.82-4.78-2.2-11.55.59-15.29 7.74-10.38 15.48-14.67 20.6-16.6 23.25-8.79 10.99 49.98-10.67 40.18-3.29-1.49-7.91-5.04-10.52-8.3Zm25.3-6.08c3.13-4.37 6.47-11.44 4.63-16.6-1.82-4.81-8.01-5.6-14.19-.52-18.68 14.75-7.92 38.47 9.55 17.12ZM27.49 52.32c-12.26 9.91-39.12-2.63-21.87-11.41 1.06-.58 2.94-1.38 2.24.42-8.97 14.88 14.81 14.09 18.44.36 3.16-15.92-39.1-1.79-21.65-20.72 3.67-3.98 8.13-6.14 13.38-9.06C33.36 3.4 31.28 25.29 23.8 24.66c-2.34-.89-.03-3.55.22-5.1.82-5.1-12.17.39-15.53 4.6-.74.93-.37 2.32.76 2.69 10.92 3.68 36.45 5.11 18.23 25.46Zm198.69-22.64c.99 3.67 5.17 7.44 6.39 11.24 2.5 8.63-5.25 2.12-7.68-.6-6.46-7.22-7.4-9.85-11.35-2.11-1.75 3.42-1.53 11.99-7.18 10.01-.85-.6-1.04-1.62-1.06-2.42-.28-7.86.53-16.63.14-23.72-.09-4.87-3.64-19.36 1.52-21.31 9.76.41 1.24 19.08 7.69 22.42 6.24 4.47 23.77-23.53 28.29-13-.83 9.45-19.34 9.85-16.75 19.48ZM79.15 36.24c-3.98 6.16 10.93 20.05 6.27 20.68-6.14-.26-12.11-17.68-17.46-9.07-1.74 3.02-3.41 12.63-7.61 6.41-2.26-4.22.36-9.02.49-13.28.9-7.76-1.28-30.44 3.04-30.65.92-.05 2.5 1.98 3.25 4.06 2.47 5.81-3.64 30.63 8.79 17.54 5.64-5.25 11.51-12.08 16.9-17.2 1.51-1.49 7.26-3.12 6.3.48-3.16 7.02-15.45 14.8-19.96 21.03Zm118.33-8.72c4.03 8.1-10.6 15.96-17.62 15.4-3.13.09-7.68-1.15-2.98-4.5 3.2-2.38 8.35-4.04 11.27-6.96 7.13-7.96-18.74-3.59-20.6-14.21.37-6.57 12.24-9.32 17.67-8.42 3.82.53 6.96 2.85 3.53 4.41-1.22.95-14.84 2.35-11.66 5.5 5.97 2.8 16.38 1.93 20.39 8.78m53.13 13.16c-1.36.27-2.24-1-2.3-2.25-1.5-11.03 3.97-22.74.44-33.49-2.38-8.7 11.78-6.46 9.71 11.1-.17 5.18-2.6 23.83-7.85 24.64m-202.03 4c-.48 2.26 1.05 7.41-1.99 7.82-10.16-1.7-1.8-19.22-3.87-34.61 0-1.72-1.76-6.52 1.25-6.06 9.32 4.74 6.93 21.79 4.6 32.84Z" style="fill:none"/>
+              <path
+                d="M144.81 34.87c.49-3.15 6.77-4.31 9.71-5.78 3.06-1.32 5.67-2.54 7.3-5.13 11.62-16.2-36.65-30.27-28.64-7.9 4.65 11.55-3.98 30.53 2.72 36.9 2.7 1.26 4.93-3.04 5.31-5.49.72-1.89-1.52-5.85 1.63-5.46 3.88.71 18.83 7.68 20.42 3.14-.18-1.12-1.47-1.85-2.4-2.34-3.77-1.91-9.2-3.92-13.05-5.59-1.07-.51-2.69-1.12-3.01-2.34Zm-1.92-8.37c-13.98-27.98 20.92-16.71 11.59-5.3-2.23 2.62-8.46 9.11-11.59 5.3M95.52 43.69c-3.82-4.78-2.2-11.55.59-15.29 7.74-10.38 15.48-14.67 20.6-16.6 23.25-8.79 10.99 49.98-10.67 40.18-3.29-1.49-7.91-5.04-10.52-8.3Zm25.3-6.08c3.13-4.37 6.47-11.44 4.63-16.6-1.82-4.81-8.01-5.6-14.19-.52-18.68 14.75-7.92 38.47 9.55 17.12ZM27.49 52.32c-12.26 9.91-39.12-2.63-21.87-11.41 1.06-.58 2.94-1.38 2.24.42-8.97 14.88 14.81 14.09 18.44.36 3.16-15.92-39.1-1.79-21.65-20.72 3.67-3.98 8.13-6.14 13.38-9.06C33.36 3.4 31.28 25.29 23.8 24.66c-2.34-.89-.03-3.55.22-5.1.82-5.1-12.17.39-15.53 4.6-.74.93-.37 2.32.76 2.69 10.92 3.68 36.45 5.11 18.23 25.46Zm198.69-22.64c.99 3.67 5.17 7.44 6.39 11.24 2.5 8.63-5.25 2.12-7.68-.6-6.46-7.22-7.4-9.85-11.35-2.11-1.75 3.42-1.53 11.99-7.18 10.01-.85-.6-1.04-1.62-1.06-2.42-.28-7.86.53-16.63.14-23.72-.09-4.87-3.64-19.36 1.52-21.31 9.76.41 1.24 19.08 7.69 22.42 6.24 4.47 23.77-23.53 28.29-13-.83 9.45-19.34 9.85-16.75 19.48ZM79.15 36.24c-3.98 6.16 10.93 20.05 6.27 20.68-6.14-.26-12.11-17.68-17.46-9.07-1.74 3.02-3.41 12.63-7.61 6.41-2.26-4.22.36-9.02.49-13.28.9-7.76-1.28-30.44 3.04-30.65.92-.05 2.5 1.98 3.25 4.06 2.47 5.81-3.64 30.63 8.79 17.54 5.64-5.25 11.51-12.08 16.9-17.2 1.51-1.49 7.26-3.12 6.3.48-3.16 7.02-15.45 14.8-19.96 21.03Zm118.33-8.72c4.03 8.1-10.6 15.96-17.62 15.4-3.13.09-7.68-1.15-2.98-4.5 3.2-2.38 8.35-4.04 11.27-6.96 7.13-7.96-18.74-3.59-20.6-14.21.37-6.57 12.24-9.32 17.67-8.42 3.82.53 6.96 2.85 3.53 4.41-1.22.95-14.84 2.35-11.66 5.5 5.97 2.8 16.38 1.93 20.39 8.78m53.13 13.16c-1.36.27-2.24-1-2.3-2.25-1.5-11.03 3.97-22.74.44-33.49-2.38-8.7 11.78-6.46 9.71 11.1-.17 5.18-2.6 23.83-7.85 24.64m-202.03 4c-.48 2.26 1.05 7.41-1.99 7.82-10.16-1.7-1.8-19.22-3.87-34.61 0-1.72-1.76-6.52 1.25-6.06 9.32 4.74 6.93 21.79 4.6 32.84Z"
+                style="fill:none"></path>
             </clipPath>
           </defs>
           <g id="signature" style="clip-path:url(#clippath)">
@@ -37,55 +52,71 @@
               stroke="currentColor"
               stroke-width="10px"
               stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+              stroke-linejoin="round"></path>
           </g>
         </svg>
       </div>
     </div>
-    
+
     <!-- Three Pillars & Story Link aligned to right -->
-    <div class="mt-auto w-full pt-12">
-      <!-- 3 separate boxes with NO light borders and bottom margin 16px -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-4" data-stagger-grid data-stagger-start="top 65%">
+    <div class="mt-auto w-full pt-6">
+      <!-- 3 separate boxes with NO light borders -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-4"
+        data-stagger-grid
+        data-stagger-start="top 65%"
+      >
         <!-- Box 1 -->
         <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
           <div class="space-y-2.5">
-            <!-- Larger Heading Font (serif) Title -->
-            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">30 Years of Heritage</h3>
-            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">Decades of mastering traditional drawing techniques and preserving classical craftsmanship.</div>
+            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">
+              30 Years of Heritage
+            </h3>
+            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
+              Decades of mastering traditional drawing techniques and preserving classical
+              craftsmanship.
+            </div>
           </div>
         </div>
-        
+
         <!-- Box 2 -->
         <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
           <div class="space-y-2.5">
-            <!-- Larger Heading Font (serif) Title -->
-            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">1/1 Unique Originals</h3>
-            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">Absolute absence of print-on-demand editions, digital replicas, or duplicates. Each piece is unique.</div>
+            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">
+              1/1 Unique Originals
+            </h3>
+            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
+              Absolute absence of print-on-demand editions, digital replicas, or duplicates. Each
+              piece is unique.
+            </div>
           </div>
         </div>
-        
+
         <!-- Box 3 -->
         <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
           <div class="space-y-2.5">
-            <!-- Larger Heading Font (serif) Title -->
-            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">Archival Standards</h3>
-            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">Museum-grade acid-free cotton papers (Canson/Strathmore) paired with archival media to last for centuries.</div>
+            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">
+              Archival Standards
+            </h3>
+            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
+              Museum-grade acid-free cotton papers (Canson/Strathmore) paired with archival media to
+              last for centuries.
+            </div>
           </div>
         </div>
       </div>
-      
-      <!-- Link with animated underline, aligned right, flush with pillars grid and closer spacing -->
+
+      <!-- Link with animated underline -->
       <div class="flex justify-end">
-        <a 
-          href="/about" 
+        <a
+          href="/about"
           class="group relative inline-flex items-center gap-1.5 text-[13px] text-[var(--dim-grey-light)] hover:text-[var(--old-lace)] transition-colors pb-1"
         >
           Read the story
           <span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
-          <!-- Animated Underline -->
-          <span class="absolute bottom-0 left-0 w-full h-[1px] bg-[var(--sanguine)] origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100 group-hover:origin-left"></span>
+          <span
+            class="absolute bottom-0 left-0 w-full h-[1px] bg-[var(--sanguine)] origin-right scale-x-0 transition-transform duration-300 group-hover:scale-x-100 group-hover:origin-left"
+          ></span>
         </a>
       </div>
     </div>
@@ -93,205 +124,214 @@
 </section>
 
 <style>
-.text-appearing :global(div),
-.text-appearing :global(span) {
-  display: inline-block !important;
-  transform-style: preserve-3d !important;
-  backface-visibility: hidden !important;
-  will-change: transform, opacity !important;
-}
+  .manifesto-text {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  :global(.manifesto-text .line) {
+    overflow: visible !important;
+  }
 </style>
 
 <script>
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+  gsap.registerPlugin(ScrollTrigger, SplitText);
 
-// 1. Vertical Line drawing to CENTER of tagline + Tagline Entrance & Glow AFTER line completes
-const manifestoSection = document.querySelector(".manifesto-section");
-const creedTag = document.querySelector(".artist-creed-tag") as HTMLElement | null;
-const creedLine = document.querySelector(".creed-line") as HTMLElement | null;
+  // 1. Vertical Line drawing (TEMPORARILY COMMENTED OUT FOR ISOLATED CREDO TESTING)
+  /*
+  const manifestoSection = document.querySelector(".manifesto-section");
+  const creedTag = document.querySelector(".artist-creed-tag") as HTMLElement | null;
+  const creedLine = document.querySelector(".creed-line") as HTMLElement | null;
 
-if (manifestoSection && creedTag && creedLine) {
-  // Measure exact center position in natural scale: 1 state
-  const sectionRect = manifestoSection.getBoundingClientRect();
-  const tagRect = creedTag.getBoundingClientRect();
-  const centerTargetHeight = Math.max(0, (tagRect.top - sectionRect.top) + (tagRect.height / 2));
+  if (manifestoSection && creedTag && creedLine) {
+    const sectionRect = manifestoSection.getBoundingClientRect();
+    const tagRect = creedTag.getBoundingClientRect();
+    const centerTargetHeight = Math.max(0, tagRect.top - sectionRect.top + tagRect.height / 2);
 
-  // Set initial hidden state for creedTag (scale: 4, y: 50, opacity: 0)
-  gsap.set(creedTag, {
-    opacity: 0,
-    scale: 4,
-    y: 50,
-    color: "#ffffff",
-    textShadow: "0 0 0px rgba(224, 72, 54, 0)",
-    filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))"
-  });
-
-  let creedAnimated = false;
-
-  const playCreedSequence = () => {
-    if (creedAnimated) return;
-    creedAnimated = true;
-
-    const creedTl = gsap.timeline();
-
-    // Step A: Text scaling animation (scale: 4 -> 1, y: 50 -> 0, opacity: 0 -> 1)
-    creedTl.fromTo(
-      creedTag,
-      {
-        opacity: 0,
-        scale: 4,
-        y: 50,
-        color: "#ffffff",
-        textShadow: "0 0 0px rgba(224, 72, 54, 0)",
-        filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))"
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        color: "#ffffff",
-        duration: 1.1,
-        ease: "power2.out"
-      }
-    );
-
-    // Step B: Seamless transition right as scale completes — extended sanguine shadow glow blooms over 2.2s
-    creedTl.to(
-      creedTag,
-      {
-        textShadow: "0 0 12px #e04836, 0 0 28px #e04836, 0 0 50px #e04836, 0 0 80px #e04836",
-        filter: "drop-shadow(0 0 20px rgba(224, 72, 54, 0.95))",
-        duration: 2.2,
-        ease: "sine.out"
-      },
-      "-=0.08"
-    );
-  };
-
-  const resetCreedSequence = () => {
-    creedAnimated = false;
-    gsap.to(creedTag, {
+    gsap.set(creedTag, {
       opacity: 0,
       scale: 4,
       y: 50,
       color: "#ffffff",
       textShadow: "0 0 0px rgba(224, 72, 54, 0)",
       filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))",
-      duration: 0.5,
-      ease: "power2.in"
     });
+
+    let creedAnimated = false;
+
+    const playCreedSequence = () => {
+      if (creedAnimated) return;
+      creedAnimated = true;
+
+      const creedTl = gsap.timeline();
+
+      creedTl.fromTo(
+        creedTag,
+        {
+          opacity: 0,
+          scale: 4,
+          y: 50,
+          color: "#ffffff",
+          textShadow: "0 0 0px rgba(224, 72, 54, 0)",
+          filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))",
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          color: "#ffffff",
+          duration: 1.1,
+          ease: "power2.out",
+        },
+      );
+
+      creedTl.to(
+        creedTag,
+        {
+          textShadow: "0 0 12px #e04836, 0 0 28px #e04836, 0 0 50px #e04836, 0 0 80px #e04836",
+          filter: "drop-shadow(0 0 20px rgba(224, 72, 54, 0.95))",
+          duration: 2.2,
+          ease: "sine.out",
+        },
+        "-=0.08",
+      );
+    };
+
+    const resetCreedSequence = () => {
+      creedAnimated = false;
+      gsap.to(creedTag, {
+        opacity: 0,
+        scale: 4,
+        y: 50,
+        color: "#ffffff",
+        textShadow: "0 0 0px rgba(224, 72, 54, 0)",
+        filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))",
+        duration: 0.5,
+        ease: "power2.in",
+      });
+    };
+
+    gsap.fromTo(
+      creedLine,
+      { height: 0, opacity: 0 },
+      {
+        height: centerTargetHeight,
+        opacity: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".manifesto-section",
+          start: "top 80%",
+          end: "top 42%",
+          scrub: 1,
+          onLeave: () => playCreedSequence(),
+          onEnterBack: () => resetCreedSequence(),
+        },
+      },
+    );
+  }
+  */
+
+  // 2. Main quote animation: ENTRANCE -> PAUSE -> SCATTER OUT LINE-BY-LINE (ACTIVE ONLY)
+  const initCredoScatter = () => {
+    let ctx = gsap.context(() => {
+      // 1. Podział tekstu na linie i pojedyncze znaki
+      const split = new SplitText(".text-appearing", {
+        type: "lines, chars",
+        charsClass: "char",
+        linesClass: "line",
+      });
+
+      // Ensure lines don't mask/clip characters during vertical entrance
+      gsap.set(split.lines, { overflow: "visible" });
+
+      // 2. Główna linia czasowa powiązana ze ScrollTriggerem z przypięciem (z pinType: "transform" dla ScrollSmoother)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".manifesto-section",
+          pin: true,
+          pinType: "transform",
+          start: "top top",
+          end: "+=2000",
+          scrub: 1,
+          anticipatePin: 1,
+        },
+      });
+
+      // --- FAZA 1: WEJŚCIE (Entrance) ---
+      tl.from(split.chars, {
+        y: 20,
+        autoAlpha: 0,
+        ease: "circ.out",
+        stagger: 0.02,
+        duration: 1,
+      })
+
+        // --- FAZA 2: POSTÓJ (Pause) ---
+        .to({}, { duration: 1.5 });
+
+      // --- FAZA 3: ULATNIANIE LINIA PO LINII (Scatter Out Line-by-Line) ---
+      split.lines.forEach((lineEl, idx) => {
+        const lineChars = Array.from(split.chars).filter((char) => lineEl.contains(char));
+        if (!lineChars.length) return;
+
+        tl.to(
+          lineChars,
+          {
+            y: () => gsap.utils.random(-350, -600),
+            x: () => gsap.utils.random(-200, 200),
+            rotationX: () => gsap.utils.random(-180, 180),
+            rotationY: () => gsap.utils.random(-180, 180),
+            rotationZ: () => gsap.utils.random(-90, 90),
+            autoAlpha: 0,
+            filter: "blur(12px)",
+            ease: "power2.in",
+            stagger: {
+              amount: 0.8,
+              from: "random",
+            },
+            duration: 1.5,
+          },
+          idx === 0 ? ">" : "+=0.01",
+        );
+      });
+    });
+
+    document.addEventListener("astro:before-preparation", () => ctx.revert(), { once: true });
   };
 
-  // Step A: Draw 1px vertical line scrubbed with scroll down to exact text center
-  gsap.fromTo(
-    creedLine,
-    { height: 0, opacity: 0 },
-    {
-      height: centerTargetHeight,
-      opacity: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".manifesto-section",
-        start: "top 80%",
-        end: "top 42%",
-        scrub: 1,
-        onLeave: () => playCreedSequence(),
-        onEnterBack: () => resetCreedSequence()
-      }
-    }
-  );
-}
-
-// 3. Text Appearing main quote animation: Entrance (yygRdYx) + Upper Viewport Scatter Out Line-by-Line (wBgEmNO)
-const textAppearingEl = document.querySelector(".text-appearing");
-if (textAppearingEl) {
-  const splitAppearing = new SplitText(textAppearingEl, { type: "lines,words,chars" });
-  const allChars = splitAppearing.chars;
-  const lines = splitAppearing.lines;
-
-  // Enforce Safari & WebKit 3D rendering properties on split chars
-  gsap.set(allChars, {
-    display: "inline-block",
-    transformStyle: "preserve-3d",
-    backfaceVisibility: "hidden"
-  });
-
-  // Single master timeline for entrance + line-by-line scatter out
-  const quoteTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".text-appearing",
-      start: "top 75%",
-      end: "bottom 10%",
-      scrub: 1,
-      markers: true // GSAP MARKERS GUARANTEED TO SHOW UP!
-    }
-  });
-
-  // Step 3A: ENTRANCE animation (burrowing from bottom on scroll - CodePen yygRdYx)
-  quoteTl.from(allChars, {
-    duration: 1,
-    opacity: 0,
-    y: 20,
-    ease: "circ.out",
-    stagger: 0.02
-  });
-
-  // Brief pause while quote is centered and readable
-  quoteTl.to({}, { duration: 0.3 });
-
-  // Step 3B: SCATTER OUT animation line-by-line as text travels into upper viewport (CodePen wBgEmNO wind/smoke scatter)
-  lines.forEach((lineEl, idx) => {
-    // Get exact character spans belonging to this line
-    const lineChars = Array.from(allChars).filter((char) => lineEl.contains(char));
-    if (!lineChars.length) return;
-
-    quoteTl.to(
-      lineChars,
-      {
-        y: () => gsap.utils.random(-350, -600), // Strong upward flight vector into upper screen space
-        x: () => gsap.utils.random(-60, 150),   // Gentle breeze drift
-        rotationZ: () => gsap.utils.random(-75, 75), // Natural leaf/smoke rotation
-        rotationX: () => gsap.utils.random(-180, 180),
-        rotationY: () => gsap.utils.random(-180, 180),
-        opacity: 0,
-        scale: () => gsap.utils.random(0.5, 1.3),
-        ease: "power2.in",
-        stagger: {
-          amount: 0.2,
-          from: "random"
-        },
-        duration: 1
-      },
-      idx === 0 ? ">" : "+=0.1"
-    );
-  });
-}
-
-// 4. Animate artist signature drawing on scroll AFTER text
-const paths = document.querySelectorAll("#artist-signature .sig-path");
-if (paths.length > 0) {
-  paths.forEach((path) => {
-    const length = (path as SVGPathElement).getTotalLength();
-    gsap.set(path, {
-      strokeDasharray: length,
-      strokeDashoffset: length
+  // 3. Signature stroke drawing (TEMPORARILY COMMENTED OUT FOR ISOLATED CREDO TESTING)
+  /*
+  const paths = document.querySelectorAll("#artist-signature .sig-path");
+  if (paths.length > 0) {
+    paths.forEach((path) => {
+      const length = (path as SVGPathElement).getTotalLength();
+      gsap.set(path, {
+        strokeDasharray: length,
+        strokeDashoffset: length,
+      });
     });
-  });
 
-  gsap.to(paths, {
-    strokeDashoffset: 0,
-    duration: 3.2,
-    ease: "power2.inOut",
-    stagger: 0.25,
-    scrollTrigger: {
-      trigger: "#artist-signature",
-      start: "top 65%",
-      toggleActions: "play none none none"
-    }
-  });
-}
+    gsap.to(paths, {
+      strokeDashoffset: 0,
+      duration: 3.2,
+      ease: "power2.inOut",
+      stagger: 0.25,
+      scrollTrigger: {
+        trigger: "#artist-signature",
+        start: "top 65%",
+        toggleActions: "play none none none",
+      },
+    });
+  }
+  */
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCredoScatter);
+  } else {
+    initCredoScatter();
+  }
 </script>
