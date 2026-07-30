@@ -3,13 +3,13 @@
 ---
 
 <section
-  class="manifesto-section relative h-screen min-h-screen flex items-center justify-center bg-charcoal-texture text-[var(--old-lace)] px-6 py-12 z-10 overflow-hidden"
+  class="manifesto-section smoke-section relative h-screen min-h-screen flex items-center justify-center bg-charcoal-texture text-[var(--old-lace)] px-6 py-12 z-10 overflow-hidden"
 >
-  <!-- Thin vertical line extending from top edge of section down to touch tagline (temporarily hidden for isolation testing) -->
-  <!-- <div
+  <!-- Thin vertical line extending from top edge of section down to touch tagline -->
+  <div
     class="creed-line absolute top-0 left-1/2 -translate-x-1/2 w-[1px] bg-[var(--sanguine)] opacity-80 pointer-events-none origin-top overflow-hidden"
   >
-  </div> -->
+  </div>
 
   <div
     class="mx-auto w-full max-w-5xl text-center flex flex-col justify-between min-h-[600px] space-y-12 z-10"
@@ -23,7 +23,7 @@
       </p>
 
       <h2
-        class="text-appearing manifesto-text text-3xl sm:text-5xl lg:text-6xl font-serif leading-[1.35] text-balance font-normal tracking-wide max-w-4xl mx-auto pt-6"
+        class="text-appearing manifesto-text smoke-title text-3xl sm:text-5xl lg:text-6xl font-serif leading-[1.35] text-balance font-normal tracking-wide max-w-4xl mx-auto pt-6"
       >
         “Every stroke is an unfiltered dialogue between charcoal and paper. No mass prints, no
         digital replication. Only single-edition physical artwork crafted to endure for centuries.”
@@ -60,48 +60,44 @@
 
     <!-- Three Pillars & Story Link aligned to right -->
     <div class="mt-auto w-full pt-6">
-      <!-- 3 separate boxes with NO light borders -->
-      <div
-        class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-4"
-        data-stagger-grid
-        data-stagger-start="top 65%"
-      >
+      <!-- 3 separate boxes -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-4">
         <!-- Box 1 -->
-        <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
+        <div class="creed-box bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
           <div class="space-y-2.5">
-            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">
+            <h3 class="creed-box-title text-lg" style="color: var(--dim-grey-light) !important;">
               30 Years of Heritage
             </h3>
-            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
+            <p class="creed-box-desc text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
               Decades of mastering traditional drawing techniques and preserving classical
               craftsmanship.
-            </div>
+            </p>
           </div>
         </div>
 
         <!-- Box 2 -->
-        <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
+        <div class="creed-box bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
           <div class="space-y-2.5">
-            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">
+            <h3 class="creed-box-title text-lg" style="color: var(--dim-grey-light) !important;">
               1/1 Unique Originals
             </h3>
-            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
+            <p class="creed-box-desc text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
               Absolute absence of print-on-demand editions, digital replicas, or duplicates. Each
               piece is unique.
-            </div>
+            </p>
           </div>
         </div>
 
         <!-- Box 3 -->
-        <div class="bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
+        <div class="creed-box bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
           <div class="space-y-2.5">
-            <h3 class="text-lg" style="color: var(--dim-grey-light) !important;">
+            <h3 class="creed-box-title text-lg" style="color: var(--dim-grey-light) !important;">
               Archival Standards
             </h3>
-            <div class="text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
+            <p class="creed-box-desc text-[13px] text-[var(--dim-grey-light)] leading-relaxed">
               Museum-grade acid-free cotton papers (Canson/Strathmore) paired with archival media to
               last for centuries.
-            </div>
+            </p>
           </div>
         </div>
       </div>
@@ -124,13 +120,66 @@
 </section>
 
 <style>
+  .smoke-title,
   .manifesto-text {
     perspective: 1000px;
     transform-style: preserve-3d;
   }
 
-  :global(.manifesto-text .line) {
+  /* Stylizacja i mikro-animacje 3 filarów */
+  .creed-box {
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid transparent;
+  }
+
+  .creed-box:hover {
+    background-color: rgba(244, 240, 234, 0.06);
+    border-color: rgba(142, 74, 56, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(142, 74, 56, 0.15);
+  }
+
+  .creed-box-title {
+    font-weight: 400;
+    font-variation-settings: "wght" 400;
+    transition: font-weight 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                font-variation-settings 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.8s ease,
+                letter-spacing 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .creed-box:hover .creed-box-title {
+    font-weight: 900 !important;
+    font-variation-settings: "wght" 900 !important;
+    color: #ffffff !important;
+    letter-spacing: 0.035em;
+  }
+
+  /* Wymuszamy, by żaden kontener podziału nie obcinał wystających elementów */
+  .smoke-title,
+  .manifesto-text,
+  .creed-box-desc,
+  :global(.smoke-title .line),
+  :global(.manifesto-text .line),
+  :global(.creed-box-desc .line-inner),
+  :global(.smoke-title .char),
+  :global(.manifesto-text .char) {
     overflow: visible !important;
+  }
+
+  /* Powiększamy obszar renderowania znaku bez zmieniania jego pozycji w tekście */
+  :global(.smoke-title .char),
+  :global(.manifesto-text .char) {
+    display: inline-block;
+    padding: 0.15em 0.2em; /* Daje przestrzeń na ozdobniki i ligatury */
+    margin: -0.15em -0.2em; /* Kompensuje padding, zachowując naturalne odległości */
+
+    /* Włącza antyaliasing i poprawia renderowanie krawędzi w 3D */
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 </style>
 
@@ -141,139 +190,248 @@
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  // 1. Vertical Line drawing (TEMPORARILY COMMENTED OUT FOR ISOLATED CREDO TESTING)
-  /*
-  const manifestoSection = document.querySelector(".manifesto-section");
-  const creedTag = document.querySelector(".artist-creed-tag") as HTMLElement | null;
-  const creedLine = document.querySelector(".creed-line") as HTMLElement | null;
+  const initManifestoAnimation = async () => {
+    // 1. Czekamy, aż fonty będą gotowe i wyrenderowane!
+    if (document.fonts) {
+      await document.fonts.ready;
+    }
 
-  if (manifestoSection && creedTag && creedLine) {
-    const sectionRect = manifestoSection.getBoundingClientRect();
-    const tagRect = creedTag.getBoundingClientRect();
-    const centerTargetHeight = Math.max(0, tagRect.top - sectionRect.top + tagRect.height / 2);
-
-    gsap.set(creedTag, {
-      opacity: 0,
-      scale: 4,
-      y: 50,
-      color: "#ffffff",
-      textShadow: "0 0 0px rgba(224, 72, 54, 0)",
-      filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))",
-    });
-
-    let creedAnimated = false;
-
-    const playCreedSequence = () => {
-      if (creedAnimated) return;
-      creedAnimated = true;
-
-      const creedTl = gsap.timeline();
-
-      creedTl.fromTo(
-        creedTag,
-        {
-          opacity: 0,
-          scale: 4,
-          y: 50,
-          color: "#ffffff",
-          textShadow: "0 0 0px rgba(224, 72, 54, 0)",
-          filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))",
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          color: "#ffffff",
-          duration: 1.1,
-          ease: "power2.out",
-        },
-      );
-
-      creedTl.to(
-        creedTag,
-        {
-          textShadow: "0 0 12px #e04836, 0 0 28px #e04836, 0 0 50px #e04836, 0 0 80px #e04836",
-          filter: "drop-shadow(0 0 20px rgba(224, 72, 54, 0.95))",
-          duration: 2.2,
-          ease: "sine.out",
-        },
-        "-=0.08",
-      );
-    };
-
-    const resetCreedSequence = () => {
-      creedAnimated = false;
-      gsap.to(creedTag, {
-        opacity: 0,
-        scale: 4,
-        y: 50,
-        color: "#ffffff",
-        textShadow: "0 0 0px rgba(224, 72, 54, 0)",
-        filter: "drop-shadow(0 0 0px rgba(224, 72, 54, 0))",
-        duration: 0.5,
-        ease: "power2.in",
-      });
-    };
-
-    gsap.fromTo(
-      creedLine,
-      { height: 0, opacity: 0 },
-      {
-        height: centerTargetHeight,
-        opacity: 1,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".manifesto-section",
-          start: "top 80%",
-          end: "top 42%",
-          scrub: 1,
-          onLeave: () => playCreedSequence(),
-          onEnterBack: () => resetCreedSequence(),
-        },
-      },
-    );
-  }
-  */
-
-  // 2. Main quote animation: ENTRANCE -> PAUSE -> SCATTER OUT LINE-BY-LINE (ACTIVE ONLY)
-  const initCredoScatter = () => {
+    // 2. Bezpieczny kontekst GSAP
     let ctx = gsap.context(() => {
-      // 1. Podział tekstu na linie i pojedyncze znaki
-      const split = new SplitText(".text-appearing", {
+      const titleEl = document.querySelector(".smoke-title") || document.querySelector(".manifesto-text");
+      if (!titleEl) return;
+
+      const split = new SplitText(titleEl, {
         type: "lines, chars",
         charsClass: "char",
-        linesClass: "line",
+        linesClass: "line"
       });
 
-      // Ensure lines don't mask/clip characters during vertical entrance
       gsap.set(split.lines, { overflow: "visible" });
 
-      // 2. Główna linia czasowa powiązana ze ScrollTriggerem z przypięciem (z pinType: "transform" dla ScrollSmoother)
+      const sectionEl = (document.querySelector(".smoke-section") || document.querySelector(".manifesto-section")) as HTMLElement | null;
+      if (!sectionEl) return;
+
+      const creedTag = sectionEl.querySelector(".artist-creed-tag") as HTMLElement | null;
+      const creedLine = sectionEl.querySelector(".creed-line") as HTMLElement | null;
+
+      // Obliczenia wysokości pionowej linii dla pozycji startowej (wyżej na 25vh) oraz pozycji docelowej na samej górze
+      const sectionRect = sectionEl.getBoundingClientRect();
+      const tagRect = creedTag ? creedTag.getBoundingClientRect() : null;
+      const baseTagTop = tagRect ? tagRect.top - sectionRect.top : 80;
+      const vhOffset = window.innerHeight * 0.25;
+      const heightAtStartPos = Math.max(40, baseTagTop + vhOffset);
+      const heightAtZero = Math.max(40, baseTagTop);
+
+      // 0. Linia zaczyna rysować się w dół WIRALOWO / WCZEŚNIEJ – dokładnie gdy góra sekcji znajdzie się na wysokości 50vh (top 50%)
+      if (creedLine) {
+        gsap.set(creedLine, {
+          height: heightAtStartPos,
+          scaleY: 0,
+          transformOrigin: "top center",
+          opacity: 1,
+        });
+
+        gsap.to(creedLine, {
+          scaleY: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionEl,
+            start: "top 50%",
+            end: "top top",
+            scrub: 1,
+          },
+        });
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: ".manifesto-section",
+          trigger: sectionEl,
           pin: true,
           pinType: "transform",
           start: "top top",
-          end: "+=2000",
+          end: "+=4000",
           scrub: 1,
           anticipatePin: 1,
-        },
+        }
       });
 
-      // --- FAZA 1: WEJŚCIE (Entrance) ---
+      // 1a. Nagłówek schodzi się na 25vh (letter-spacing 3.5em -> 0.3em)
+      if (creedTag && creedLine) {
+        tl.fromTo(
+          creedTag,
+          {
+            autoAlpha: 0,
+            y: "25vh",
+            letterSpacing: "3.5em",
+            textShadow: "0 0 0px rgba(224, 72, 54, 0)",
+          },
+          {
+            autoAlpha: 1,
+            y: "25vh",
+            letterSpacing: "0.3em",
+            duration: 1.4,
+            ease: "power2.out",
+          }
+        );
+
+        // 1b. Gdy zbieganie się liter dobiegnie końca: płynne włączenie jasnego cienia (textShadow glow) oraz przesunięcie w górę
+        tl.to(
+          creedTag,
+          {
+            textShadow: "0 0 12px #ff5c47, 0 0 28px #e04836, 0 0 55px #e04836, 0 0 90px rgba(224, 72, 54, 0.95)",
+            y: 0,
+            duration: 1.2,
+            ease: "power2.inOut",
+          },
+          "+=0.05"
+        );
+
+        tl.to(
+          creedLine,
+          {
+            height: heightAtZero,
+            duration: 1.2,
+            ease: "power2.inOut",
+          },
+          "<"
+        );
+      }
+
+      // 2. Credo - wejście tekstu
       tl.from(split.chars, {
         y: 20,
         autoAlpha: 0,
         ease: "circ.out",
         stagger: 0.02,
-        duration: 1,
-      })
+        duration: 1
+      }, "-=0.3");
 
-        // --- FAZA 2: POSTÓJ (Pause) ---
-        .to({}, { duration: 1.5 });
+      // 3. Animacja rysowania podpisu SVG (Artist Signature)
+      const sigPaths = sectionEl.querySelectorAll("#artist-signature .sig-path");
+      if (sigPaths.length > 0) {
+        sigPaths.forEach((path) => {
+          const length = (path as SVGPathElement).getTotalLength();
+          gsap.set(path, {
+            strokeDasharray: length,
+            strokeDashoffset: length,
+          });
+        });
 
-      // --- FAZA 3: ULATNIANIE LINIA PO LINII (Scatter Out Line-by-Line) ---
+        tl.to(
+          sigPaths,
+          {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            ease: "power2.inOut",
+            stagger: 0.2,
+          },
+          "-=0.2"
+        );
+      }
+
+      // 4. Postój przed pojawieniem się boxów filarów
+      tl.to({}, { duration: 2.0 });
+
+      // 5. Animacja 3 boxów filarów oraz ich nagłówków i paragrafów (efekt Elastic Wave Reveal jak w reszcie strony)
+      const boxes = sectionEl.querySelectorAll(".creed-box");
+      if (boxes.length > 0) {
+        tl.from(
+          boxes,
+          {
+            y: 40,
+            autoAlpha: 0,
+            duration: 1.0,
+            stagger: 0.4,
+            ease: "power2.out"
+          }
+        );
+
+        boxes.forEach((box, idx) => {
+          const title = box.querySelector(".creed-box-title");
+          const desc = box.querySelector(".creed-box-desc");
+
+          if (title) {
+            tl.from(
+              title,
+              {
+                y: 16,
+                rotation: 3,
+                autoAlpha: 0,
+                transformOrigin: "0% 0%",
+                duration: 0.9,
+                ease: "back.out(1)",
+              },
+              idx === 0 ? "-=1.0" : "-=0.7"
+            );
+          }
+
+          if (desc) {
+            const splitDesc = new SplitText(desc, {
+              type: "lines",
+              linesClass: "line-inner block origin-top-left",
+            });
+
+            tl.from(
+              splitDesc.lines,
+              {
+                y: 20,
+                rotation: 5,
+                autoAlpha: 0,
+                transformOrigin: "0% 0%",
+                duration: 1.1,
+                stagger: 0.12,
+                ease: "back.out(1)",
+              },
+              "-=0.6"
+            );
+          }
+        });
+      }
+
+      const storyLink = sectionEl.querySelector("a[href='/about']");
+      if (storyLink) {
+        tl.from(
+          storyLink,
+          {
+            y: 20,
+            autoAlpha: 0,
+            duration: 0.9,
+            ease: "power2.out"
+          },
+          "-=0.2"
+        );
+      }
+
+      // Postój przed ulatnianiem tekstu
+      tl.to({}, { duration: 2.0 });
+
+      // 6a. Napis THE ARTIST CREED oraz linia znikają tuż przed credo
+      if (creedTag) {
+        tl.to(
+          creedTag,
+          {
+            autoAlpha: 0,
+            y: -20,
+            duration: 0.8,
+            ease: "power2.in",
+          }
+        );
+      }
+
+      if (creedLine) {
+        tl.to(
+          creedLine,
+          {
+            autoAlpha: 0,
+            duration: 0.6,
+            ease: "power2.in",
+          },
+          "<"
+        );
+      }
+
+      // 6b. Credo zaczyna zanikać (Scatter Out Line-by-Line 3D)
       split.lines.forEach((lineEl, idx) => {
         const lineChars = Array.from(split.chars).filter((char) => lineEl.contains(char));
         if (!lineChars.length) return;
@@ -295,43 +453,50 @@
             },
             duration: 1.5,
           },
-          idx === 0 ? ">" : "+=0.01",
+          idx === 0 ? ">" : "-=1.25",
         );
       });
+
+      // 7. Podpis znika po ulatnieniu się credo
+      const sigEl = sectionEl.querySelector("#artist-signature");
+      if (sigEl) {
+        tl.to(
+          sigEl,
+          {
+            autoAlpha: 0,
+            y: -20,
+            duration: 1,
+            ease: "power2.in",
+          },
+          "-=0.4"
+        );
+      }
     });
 
-    document.addEventListener("astro:before-preparation", () => ctx.revert(), { once: true });
+    // 3. KLUCZOWE: Wymuszamy ponowne przeliczenie ScrollTriggera po zmianie DOM i załadowaniu fontów
+    ScrollTrigger.refresh();
+
+    return ctx;
   };
 
-  // 3. Signature stroke drawing (TEMPORARILY COMMENTED OUT FOR ISOLATED CREDO TESTING)
-  /*
-  const paths = document.querySelectorAll("#artist-signature .sig-path");
-  if (paths.length > 0) {
-    paths.forEach((path) => {
-      const length = (path as SVGPathElement).getTotalLength();
-      gsap.set(path, {
-        strokeDasharray: length,
-        strokeDashoffset: length,
-      });
-    });
+  // Obsługa cyklu życia Astro (dla zwykłego ładowania i View Transitions)
+  const setupLifecycle = () => {
+    let ctxPromise = initManifestoAnimation();
 
-    gsap.to(paths, {
-      strokeDashoffset: 0,
-      duration: 3.2,
-      ease: "power2.inOut",
-      stagger: 0.25,
-      scrollTrigger: {
-        trigger: "#artist-signature",
-        start: "top 65%",
-        toggleActions: "play none none none",
-      },
-    });
-  }
-  */
+    const cleanup = async () => {
+      const ctx = await ctxPromise;
+      if (ctx) ctx.revert();
+    };
+
+    document.addEventListener("astro:before-preparation", cleanup, { once: true });
+  };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initCredoScatter);
+    document.addEventListener("DOMContentLoaded", setupLifecycle);
   } else {
-    initCredoScatter();
+    setupLifecycle();
   }
+
+  document.addEventListener("astro:page-load", setupLifecycle);
 </script>
+

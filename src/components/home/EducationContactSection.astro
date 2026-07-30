@@ -28,11 +28,14 @@ const year = new Date().getFullYear();
     
     <!-- 3 Minimalistyczne Bloki Edukacyjne -->
     <div class="space-y-12">
-      <div class="space-y-4">
-        <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
+      <div class="section-header space-y-4" data-section-header>
+        <p class="section-tag text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
           Materiały i Trwałość archiwalna
         </p>
-        <h2 class="text-3xl sm:text-5xl font-serif text-[var(--charcoal-black)]">
+        <h2 
+          class="section-title text-3xl sm:text-5xl font-serif text-[var(--charcoal-black)]"
+          style="font-weight: 400; font-variation-settings: 'wght' 400;"
+        >
           Archival Quality
         </h2>
       </div>
@@ -59,11 +62,14 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- Wyeksponowane Call to Action -->
-    <div class="border-t border-[var(--line)] pt-20 pb-12 text-center space-y-6">
-      <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
+    <div class="section-header border-t border-[var(--line)] pt-20 pb-12 text-center space-y-6" data-section-header>
+      <p class="section-tag text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey)] font-medium">
         Masz pytania dotyczące portretu?
       </p>
-      <h2 class="text-4xl sm:text-6xl font-serif text-[var(--charcoal-black)] text-balance max-w-2xl mx-auto leading-tight">
+      <h2 
+        class="section-title text-4xl sm:text-6xl font-serif text-[var(--charcoal-black)] text-balance max-w-2xl mx-auto leading-tight"
+        style="font-weight: 400; font-variation-settings: 'wght' 400;"
+      >
         Omówmy Twój kolejny <span class="italic text-[var(--dim-grey)]">rysunek</span>.
       </h2>
       <div class="pt-6">
@@ -110,3 +116,64 @@ const year = new Date().getFullYear();
 
   </div>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const headerContainers = document.querySelectorAll(".education-contact-section [data-section-header]");
+
+  headerContainers.forEach((container) => {
+    const tag = container.querySelector(".section-tag, p");
+    const title = container.querySelector(".section-title, h2");
+
+    if (title) {
+      const headerTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top 90%",
+          end: "top 35%",
+          scrub: 1,
+        },
+      });
+
+      if (tag) {
+        headerTl.fromTo(
+          tag,
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.0, ease: "power2.out" }
+        );
+      }
+
+      headerTl.fromTo(
+        title,
+        {
+          y: 28,
+          autoAlpha: 0,
+          fontWeight: 400,
+          fontVariationSettings: "'wght' 400",
+        },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 1.1,
+          ease: "power2.out",
+        },
+        tag ? "-=0.7" : 0
+      );
+
+      headerTl.to(
+        title,
+        {
+          fontWeight: 900,
+          fontVariationSettings: "'wght' 900",
+          duration: 1.5,
+          ease: "power2.inOut",
+        },
+        "-=0.2"
+      );
+    }
+  });
+</script>

@@ -59,29 +59,29 @@ const collectionItems = [
 ];
 ---
 
-<section class="horizontal-collection-section relative overflow-hidden border-t border-[var(--line)] py-12 md:py-16 flex flex-col justify-between md:h-screen md:min-h-[720px]">
+<section class="horizontal-collection-section relative overflow-hidden border-t border-[var(--line)] pt-8 md:pt-12 pb-6 md:pb-8 flex flex-col justify-between md:h-screen md:min-h-[700px]">
   
   <!-- Static Title Header (stays on screen when section is pinned) -->
-  <div class="mx-auto w-full max-w-screen-xl px-6 md:px-24 space-y-4 z-20">
-    <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--charcoal-muted)] font-medium">
+  <div class="mx-auto w-full max-w-screen-xl px-6 md:px-24 space-y-2 z-20">
+    <p class="collection-tag text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--charcoal-muted)] font-medium">
       Kolekcja Oryginałów 1/1
     </p>
     <h2 
-      class="text-4xl sm:text-6xl lg:text-7xl font-serif"
-      style="color: #151413 !important;"
+      class="collection-title text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-serif leading-none tracking-tight pt-1"
+      style="color: #151413 !important; font-weight: 400; font-variation-settings: 'wght' 400;"
     >
       The Collection
     </h2>
   </div>
 
   <!-- Horizontal scroll viewport container, grow takes up all available vertical space -->
-  <div class="pin-wrap grow overflow-x-auto md:overflow-hidden scrollbar-none w-full mt-6 md:mt-0 flex items-center">
+  <div class="pin-wrap grow overflow-x-auto md:overflow-hidden scrollbar-none w-full mt-2 md:mt-0 flex items-center">
     <!-- 
       The scrollable container has the paper texture background. 
       As GSAP translates this container horizontally, the paper pattern scrolls horizontally 
       in perfect sync with the drawings, creating a continuous paper roll illusion.
     -->
-    <div class="scroll-wrap flex flex-row items-center gap-12 md:gap-20 px-6 md:px-24 w-fit py-8 md:py-12" data-stagger-grid>
+    <div class="scroll-wrap flex flex-row items-center gap-10 md:gap-16 px-6 md:px-24 w-fit pt-2 md:pt-4 pb-6 md:pb-8" data-stagger-grid>
       
       <!-- 6 Drawing Cards with vertical height units for responsive auto-sizing -->
       {
@@ -115,8 +115,8 @@ const collectionItems = [
     </div>
   </div>
 
-  <!-- Empty spacing to align flex layout nicely on desktop -->
-  <div class="hidden md:block h-8"></div>
+  <!-- Small bottom spacing to align flex layout nicely on desktop -->
+  <div class="hidden md:block h-2"></div>
 </section>
 
 <!-- Hide horizontal scrollbar for mobile native swipes -->
@@ -150,6 +150,56 @@ const collectionItems = [
 
   const section = document.querySelector(".horizontal-collection-section");
   const scrollWrap = document.querySelector(".scroll-wrap");
+  const collectionTag = document.querySelector(".collection-tag");
+  const collectionTitle = document.querySelector(".collection-title");
+
+  // 2-etapowa animacja nagłówka: Najpierw wejście tekstu, a DOPIERO POTEM narastające pogrubienie (font-weight 400 -> 900)
+  if (collectionTag && collectionTitle) {
+    const headerTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: collectionTag,
+        start: "top 90%",
+        end: "top 35%",
+        scrub: 1,
+      }
+    });
+
+    // Etap 1: Wejście tagu i tytułu (tak jak w reszcie strony)
+    headerTl.fromTo(
+      collectionTag,
+      { y: 20, autoAlpha: 0 },
+      { y: 0, autoAlpha: 1, duration: 1.0, ease: "power2.out" }
+    );
+
+    headerTl.fromTo(
+      collectionTitle,
+      {
+        y: 28,
+        autoAlpha: 0,
+        fontWeight: 400,
+        fontVariationSettings: "'wght' 400",
+      },
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 1.1,
+        ease: "power2.out",
+      },
+      "-=0.7"
+    );
+
+    // Etap 2: DOPIERO POTEM pogrubienie (font-weight 400 -> 900), zaczynające się i kończące ciut wcześniej
+    headerTl.to(
+      collectionTitle,
+      {
+        fontWeight: 900,
+        fontVariationSettings: "'wght' 900",
+        duration: 1.5,
+        ease: "power2.inOut",
+      },
+      "-=0.2"
+    );
+  }
 
   if (section && scrollWrap) {
     const mediaQuery = window.matchMedia("(min-width: 768px)");

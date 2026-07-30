@@ -28,11 +28,14 @@ const privateCollectionItems = [
     
     <!-- Lewa kolumna: Informacje o zamówieniach (przypięte/sticky) -->
     <div class="lg:col-span-5 lg:sticky lg:top-24 space-y-8 z-10">
-      <div class="space-y-4">
-        <p class="text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
+      <div class="section-header space-y-4" data-section-header>
+        <p class="section-tag text-[10px] md:text-xs uppercase tracking-[0.3em] text-[var(--dim-grey-light)] font-medium">
           Portrety na zamówienie
         </p>
-        <h2 class="text-4xl sm:text-5xl lg:text-6xl font-serif text-[var(--old-lace)] leading-tight">
+        <h2 
+          class="section-title text-4xl sm:text-5xl lg:text-6xl font-serif text-[var(--old-lace)] leading-tight"
+          style="font-weight: 400; font-variation-settings: 'wght' 400;"
+        >
           Commission<br /><span class="italic text-[var(--dim-grey-light)]">Portraits</span>
         </h2>
       </div>
@@ -103,3 +106,63 @@ const privateCollectionItems = [
 
   </div>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const container = document.querySelector("#commissions .section-header");
+  if (container) {
+    const tag = container.querySelector(".section-tag");
+    const title = container.querySelector(".section-title");
+
+    if (title) {
+      const headerTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: container,
+          start: "top 90%",
+          end: "top 35%",
+          scrub: 1,
+        },
+      });
+
+      if (tag) {
+        headerTl.fromTo(
+          tag,
+          { y: 20, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 1.0, ease: "power2.out" }
+        );
+      }
+
+      headerTl.fromTo(
+        title,
+        {
+          y: 28,
+          autoAlpha: 0,
+          fontWeight: 400,
+          fontVariationSettings: "'wght' 400",
+        },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 1.1,
+          ease: "power2.out",
+        },
+        tag ? "-=0.7" : 0
+      );
+
+      headerTl.to(
+        title,
+        {
+          fontWeight: 900,
+          fontVariationSettings: "'wght' 900",
+          duration: 1.5,
+          ease: "power2.inOut",
+        },
+        "-=0.2"
+      );
+    }
+  }
+</script>
