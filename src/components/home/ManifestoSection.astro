@@ -61,7 +61,7 @@
     <!-- Three Pillars & Story Link aligned to right -->
     <div class="mt-auto w-full pt-6">
       <!-- 3 separate boxes -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-6 md:mb-8">
         <!-- Box 1 -->
         <div class="creed-box bg-[rgba(244,240,234,0.03)] p-6 md:p-8 backdrop-blur-sm">
           <div class="space-y-2.5">
@@ -102,8 +102,8 @@
         </div>
       </div>
 
-      <!-- Link with animated underline placed BELOW the 3 boxes grid -->
-      <div class="flex justify-end pt-2">
+      <!-- Link with animated underline placed BELOW the 3 boxes grid with clean separation -->
+      <div class="flex justify-end pt-1 pb-1">
         <a
           href="/about"
           class="group relative inline-flex items-center gap-1.5 text-[13px] text-[var(--dim-grey-light)] hover:text-[var(--old-lace)] transition-colors pb-1"
@@ -397,7 +397,8 @@
             y: 20,
             autoAlpha: 0,
             duration: 0.9,
-            ease: "power2.out"
+            ease: "power2.out",
+            clearProps: "transform,opacity"
           },
           "-=0.2"
         );
