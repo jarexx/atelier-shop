@@ -161,10 +161,8 @@
   /* Wymuszamy, by żaden kontener podziału nie obcinał wystających elementów */
   .smoke-title,
   .manifesto-text,
-  .creed-box-desc,
   :global(.smoke-title .line),
   :global(.manifesto-text .line),
-  :global(.creed-box-desc .line-inner),
   :global(.smoke-title .char),
   :global(.manifesto-text .char) {
     overflow: visible !important;
@@ -333,60 +331,19 @@
       // 4. Postój przed pojawieniem się boxów filarów
       tl.to({}, { duration: 2.0 });
 
-      // 5. Animacja 3 boxów filarów oraz ich nagłówków i paragrafów (efekt Elastic Wave Reveal jak w reszcie strony)
+      // 5. Czysta animacja wejścia 3 boxów filarów oraz linku [Read the story →] (bez modyfikowania struktury DOM)
       const boxes = sectionEl.querySelectorAll(".creed-box");
       if (boxes.length > 0) {
         tl.from(
           boxes,
           {
-            y: 40,
+            y: 30,
             autoAlpha: 0,
             duration: 1.0,
-            stagger: 0.4,
+            stagger: 0.35,
             ease: "power2.out"
           }
         );
-
-        boxes.forEach((box, idx) => {
-          const title = box.querySelector(".creed-box-title");
-          const desc = box.querySelector(".creed-box-desc");
-
-          if (title) {
-            tl.from(
-              title,
-              {
-                y: 16,
-                rotation: 3,
-                autoAlpha: 0,
-                transformOrigin: "0% 0%",
-                duration: 0.9,
-                ease: "back.out(1)",
-              },
-              idx === 0 ? "-=1.0" : "-=0.7"
-            );
-          }
-
-          if (desc) {
-            const splitDesc = new SplitText(desc, {
-              type: "lines",
-              linesClass: "line-inner block origin-top-left",
-            });
-
-            tl.from(
-              splitDesc.lines,
-              {
-                y: 20,
-                rotation: 5,
-                autoAlpha: 0,
-                transformOrigin: "0% 0%",
-                duration: 1.1,
-                stagger: 0.12,
-                ease: "back.out(1)",
-              },
-              "-=0.6"
-            );
-          }
-        });
       }
 
       const storyLink = sectionEl.querySelector("a[href='/about']");
@@ -396,11 +353,10 @@
           {
             y: 20,
             autoAlpha: 0,
-            duration: 0.9,
-            ease: "power2.out",
-            clearProps: "transform,opacity"
+            duration: 0.8,
+            ease: "power2.out"
           },
-          "-=0.2"
+          "-=0.3"
         );
       }
 
